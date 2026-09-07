@@ -31,3 +31,15 @@ Decoupled hybrid architecture:
 - **KISS:** Keep implementations simple and direct. Avoid unnecessary abstraction layers or over-engineering.
 - **YAGNI:** Implement only features required by current [PRD.md](./PRD.md)/[TRD.md](./TRD.md). No speculative abstractions or unrequested features.
 - **DRY:** Share reusable logic via domain packages (Backend) and custom hooks/components (Frontend). Avoid duplicate business rules.
+
+## 5. Agent Implementation Rules
+
+### 5.1. Backend Constraints (Go / Postgres / Redis)
+- **Strict DB Interaction:** Use `sqlc` for all queries. No raw `database/sql` queries or ORMs like Gorm are allowed.
+- **SSE Handling:** For the Real-Time Channel, utilize `http.Flusher` natively via `go-chi`. You MUST enforce the `X-Accel-Buffering: no` and `Cache-Control: no-cache` headers to comply with NFR-3.
+- **Isolated Business Logic:** The State Engine must not infer physical outcomes (e.g., deducing a strike by coordinates). Strictly follow the Scorekeeper's explicit input as defined in the PRD.
+
+### 5.2. Frontend Constraints (Next.js / React)
+- **Strict State Segregation:** Use `Zustand` EXCLUSIVELY for live SSE states (in-progress games). Use `TanStack Query` EXCLUSIVELY for fetching historical/static REST endpoints. Never mix these responsibilities.
+- **App Router Paradigms:** Default to React Server Components. The `"use client"` directive must only be used in component trees requiring pure interactivity or consuming Zustand/TanStack hooks (e.g., Scorekeeper's visual matrix).
+- **Styling Restrictions:** Custom CSS files are prohibited (except initialization). Use `Tailwind CSS` utility classes and `shadcn/ui` components for all styling, including complex SVG manipulations for the diamond and strike zone.
