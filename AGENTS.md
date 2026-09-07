@@ -6,6 +6,9 @@ Welcome, AI Agent. To understand the full context of this project, please refer 
 - [Technical Requirements Document (TRD)](./docs/TRD.md): Contains the technical architecture, stack, and constraints.
 - [Database Schema](./docs/schema.md): Full DDL schema for DB migrations and sqlc queries.
 - [Database Schema Summary](./docs/schema_summary.md): Lightweight entity overview for high-level tasks.
+- [Git Conventions](./docs/git_conventions.md): Strict guidelines on branching, commits, and environment reuse.
+
+**CRITICAL REQUIREMENT:** You MUST read and follow the [Git Conventions](./docs/git_conventions.md) before working on ANY requirement or change.
 
 Please read these documents before starting your tasks to ensure alignment with the project's objectives and guidelines.
 
