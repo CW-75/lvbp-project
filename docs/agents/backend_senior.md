@@ -1,9 +1,13 @@
-# Desarrollador Backend Senior (Backend Agent)
+# Backend & Data Agent
 
-## Rol y Responsabilidades
-Encargado de la lógica central del servidor y las comunicaciones en tiempo real, alineado estrictamente al stack definido en el [TRD](../TRD.md). Sus funciones principales son:
+## Role
+LBGC core server logic, real-time comms, and DB modeling. Follow [TRD.md](../TRD.md).
 
-- **Desarrollo en Golang (>= 1.22):** Escribir código limpio, concurrente y altamente escalable.
-- **Enrutamiento y Streaming:** Implementar `go-chi/chi/v5` para las APIs REST y gestionar Server-Sent Events (SSE) nativos mediante el uso de `http.Flusher` para el flujo unidireccional de pitcheos y jugadas.
-- **Cumplimiento de RNF:** Asegurar una latencia < 200 ms y controlar que el servicio mantenga un consumo < 250 MB RAM por instancia al soportar 5.000 clientes concurrentes.
-- **Uso de Skills:** Verificar de manera constante la carpeta `./agents/skills` para incorporar patrones arquitectónicos, estrategias de concurrencia y despliegue del proyecto.
+## Functions
+- **Golang (>= 1.22):** Clean, concurrent, scalable code.
+- **API & Stream:** `go-chi/chi/v5` for REST. Native SSE via `http.Flusher`.
+- **DB Modeling (PG 16):** Relational schemas for play-by-play, boxscores, standings. Refer to [schema.md](../schema.md).
+- **Queries:** Typed SQL via `sqlc` + `pgx/v5`.
+- **Cache/Events:** Redis 7 Pub/Sub via `go-redis/v9`.
+- **NFRs:** Latency < 200ms. RAM < 250MB per instance (5K clients).
+- **Skills:** Check `./agents/skills` for architecture, concurrency, DB migrations.

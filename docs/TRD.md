@@ -1,26 +1,33 @@
 # Technical Requirements Document (TRD)
 
-**Proyecto:** Live Baseball GameCast & Standings Engine
+**Project:** Live Baseball GameCast & Standings Engine
 
-## 1. Arquitectura General
+## 1. General Architecture
 
-Arquitectura híbrida desacoplada:
+Decoupled hybrid architecture:
 
-- **Canal Histórico (REST):** Consultas estáticas (Standings, Boxscore).
-- **Canal de Tiempo Real (SSE):** Flujo unidireccional para pitcheos y jugadas.
+- **Historical Channel (REST):** Static queries (Standings, Boxscore).
+- **Real-Time Channel (SSE):** Unidirectional flow for pitches and plays.
 
-## 2. Stack Tecnológico
+## 2. Technology Stack
 
 - **Backend:** Go (Golang) >= 1.22.
-- **Enrutamiento y Streaming:** `go-chi/chi/v5` (control nativo de `http.Flusher`).
-- **Base de Datos Principal:** PostgreSQL 16 (Consultas tipadas con `sqlc` + `pgx/v5`).
-- **Caché y Bus de Eventos:** Redis 7 (Pub/Sub con `go-redis/v9`).
+- **Routing and Streaming:** `go-chi/chi/v5` (native control of `http.Flusher`).
+- **Main Database:** PostgreSQL 16 (Typed queries with `sqlc` + `pgx/v5`). Refer to [schema.md](./schema.md).
+- **Cache and Event Bus:** Redis 7 (Pub/Sub with `go-redis/v9`).
 - **Frontend (Framework):** Next.js 16+ (App Router, TypeScript 5+).
-- **Gestión de Estado (Frontend):** Zustand para eventos SSE (Live) y TanStack Query para REST.
-- **Interfaz de Usuario:** Tailwind CSS + shadcn/ui + lucide-react. (Renderizado del diamante y zona de strike mediante SVG nativo).
+- **State Management (Frontend):** Zustand for SSE events (Live) and TanStack Query for REST.
+- **User Interface:** Tailwind CSS + shadcn/ui + lucide-react. (Diamond and strike zone rendering via native SVG).
 
-## 3. Requerimientos No Funcionales (RNF)
+## 3. Non-Functional Requirements (NFR)
 
-- **RNF-1. Latencia:** < 200 ms desde la ingesta del anotador hasta el cliente vía SSE.
-- **RNF-2. Concurrencia:** Soportar al menos 5.000 clientes concurrentes por instancia con un consumo < 250 MB RAM.
-- **RNF-3. Proxy y Buffering:** Anular buffering intermedio enviando headers `X-Accel-Buffering: no` y `Cache-Control: no-cache`.
+- **NFR-1. Latency:** < 200 ms from the scorekeeper's ingestion to the client via SSE.
+- **NFR-2. Concurrency:** Support at least 5,000 concurrent clients per instance with a consumption of < 250 MB RAM.
+- **NFR-3. Proxy and Buffering:** Disable intermediate buffering by sending `X-Accel-Buffering: no` and `Cache-Control: no-cache` headers.
+
+## 4. Software Design Principles
+
+- **SOLID:** Single responsibility per component/package, open-closed interfaces, Liskov substitution, interface segregation, dependency inversion via Go interfaces & React hooks.
+- **KISS:** Keep implementations simple and direct. Avoid unnecessary abstraction layers or over-engineering.
+- **YAGNI:** Implement only features required by current [PRD.md](./PRD.md)/[TRD.md](./TRD.md). No speculative abstractions or unrequested features.
+- **DRY:** Share reusable logic via domain packages (Backend) and custom hooks/components (Frontend). Avoid duplicate business rules.

@@ -1,12 +1,12 @@
 # Database Schema Document (DDL)
-**Motor:** PostgreSQL 16
-**Proyecto:** Live Baseball GameCast
+**Engine:** PostgreSQL 16
+**Project:** Live Baseball GameCast
 
 ```sql
 -- Enums
 CREATE TYPE game_status AS ENUM ('SCHEDULED', 'IN_PROGRESS', 'FINAL', 'POSTPONED', 'SUSPENDED');
 
--- Equipos
+-- Teams
 CREATE TABLE teams (
     id VARCHAR(10) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE teams (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Juegos
+-- Games
 CREATE TABLE games (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     home_team_id VARCHAR(10) REFERENCES teams(id),
@@ -29,7 +29,7 @@ CREATE TABLE games (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Turnos al bate
+-- At Bats
 CREATE TABLE at_bats (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     game_id UUID REFERENCES games(id) ON DELETE CASCADE,
@@ -43,7 +43,7 @@ CREATE TABLE at_bats (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Lanzamientos (Eventos de alta frecuencia)
+-- Pitches (High-frequency events)
 CREATE TABLE pitches (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     at_bat_id UUID REFERENCES at_bats(id) ON DELETE CASCADE,
@@ -58,7 +58,8 @@ CREATE TABLE pitches (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Índices recomendados
+-- Recommended Indexes
 CREATE INDEX idx_games_status ON games(status);
 CREATE INDEX idx_at_bats_game_id ON at_bats(game_id);
 CREATE INDEX idx_pitches_at_bat_id ON pitches(at_bat_id);
+```

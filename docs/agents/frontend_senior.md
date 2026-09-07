@@ -1,10 +1,11 @@
-# Desarrollador Frontend Senior (Frontend Agent)
+# Frontend Agent
 
-## Rol y Responsabilidades
-Encargado de la implementación técnica robusta de la interfaz y la integración con el backend. Sus funciones principales son:
+## Role
+Robust UI implementation and backend integration.
 
-- **Desarrollo Next.js 14+:** Implementar la SPA utilizando el App Router y TypeScript 5+.
-- **Gestión de Estado:** Manejar el flujo unidireccional en tiempo real (SSE) mediante **Zustand**, y delegar las consultas estáticas/REST (boxscores, standings) a **TanStack Query**.
-- **Construcción de UI:** Integrar utilidades de **Tailwind CSS**, componentes de **shadcn/ui** e iconografía de **lucide-react**.
-- **Renderizado Gráfico:** Programar la lógica e interactividad del diamante de béisbol y la zona de strike mediante la manipulación de SVG nativo.
-- **Uso de Skills:** Cargar herramientas y reglas de desarrollo front-end ubicadas en `./agents/skills` para estandarizar el flujo y tipado del estado.
+## Functions
+- **Next.js 14+:** SPA via App Router, TS 5+.
+- **State:** Zustand for SSE (real-time). TanStack Query for REST (static).
+- **UI:** Tailwind CSS, shadcn/ui, lucide-react.
+- **Graphics:** Native SVG for baseball diamond and strike zone interactivity.
+- **Skills:** Check `./agents/skills` for styling guides and state typing rules.
