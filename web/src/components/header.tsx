@@ -3,6 +3,7 @@ import { Menu } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Inicio" },
+  { href: "/calendario", label: "Calendario" },
   { href: "/juegos", label: "Juegos" },
   { href: "/posiciones", label: "Posiciones" },
   { href: "/gamecast", label: "GameCast" },

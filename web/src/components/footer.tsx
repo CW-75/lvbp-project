@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const footerLinks = [
+  { href: "/calendario", label: "Calendario" },
   { href: "/juegos", label: "Juegos" },
   { href: "/posiciones", label: "Posiciones" },
   { href: "/gamecast", label: "GameCast" },

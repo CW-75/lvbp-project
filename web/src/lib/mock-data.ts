@@ -20,6 +20,16 @@ export interface Game {
   isTopInning: boolean;
   status: "live" | "scheduled" | "final";
   scheduledAt: string;
+  stadium?: string;
+  homeHits?: number;
+  awayHits?: number;
+  homeErrors?: number;
+  awayErrors?: number;
+  pitcherWin?: string;
+  pitcherLoss?: string;
+  pitcherSave?: string;
+  pitcherProbableHome?: string;
+  pitcherProbableAway?: string;
 }
 
 export interface NewsArticle {
@@ -60,62 +70,62 @@ export const teams: Team[] = [
     logoInitials: "NM",
   },
   {
+    id: "tdlg",
+    name: "Tiburones de La Guaira",
+    shortName: "LAG",
+    city: "La Guaira",
+    primaryColor: "#1565C0",
+    logoInitials: "TG",
+  },
+  {
     id: "cda",
-    name: "Caribes de Anzoátegui",
-    shortName: "CAR",
-    city: "Puerto La Cruz",
+    name: "Cardenales de Lara",
+    shortName: "LAR",
+    city: "Barquisimeto",
     primaryColor: "#D32F2F",
-    logoInitials: "CA",
+    logoInitials: "CL",
   },
   {
     id: "adz",
     name: "Águilas del Zulia",
-    shortName: "AGU",
+    shortName: "ZUL",
     city: "Maracaibo",
-    primaryColor: "#1565C0",
+    primaryColor: "#FFB300",
     logoInitials: "AZ",
   },
   {
-    id: "tda",
-    name: "Tigres de Aragua",
-    shortName: "TIG",
-    city: "Maracay",
-    primaryColor: "#FF8F00",
-    logoInitials: "TA",
-  },
-  {
-    id: "tdlg",
-    name: "Tiburones de La Guaira",
-    shortName: "TIB",
-    city: "La Guaira",
-    primaryColor: "#0D47A1",
-    logoInitials: "TG",
+    id: "cda_or",
+    name: "Caribes de Anzoátegui",
+    shortName: "ANZ",
+    city: "Puerto La Cruz",
+    primaryColor: "#00838F",
+    logoInitials: "CA",
   },
   {
     id: "bdm",
     name: "Bravos de Margarita",
-    shortName: "BRA",
+    shortName: "MAR",
     city: "Porlamar",
-    primaryColor: "#2E7D32",
+    primaryColor: "#00ACC1",
     logoInitials: "BM",
   },
   {
     id: "cdl",
-    name: "Cardenales de Lara",
-    shortName: "CDL",
-    city: "Barquisimeto",
-    primaryColor: "#B71C1C",
-    logoInitials: "CL",
+    name: "Tigres de Aragua",
+    shortName: "ARA",
+    city: "Maracay",
+    primaryColor: "#2E7D32",
+    logoInitials: "TA",
   },
 ];
 
-// --- Helper para buscar equipos ---
-function getTeam(id: string): Team {
-  return teams.find((t) => t.id === id)!;
+export function getTeam(id: string): Team {
+  return teams.find((t) => t.id === id) || teams[0];
 }
 
-// --- Juegos ---
+// --- Juegos LVBP (Jornada y Calendario) ---
 export const games: Game[] = [
+  // 7 de Septiembre (Hoy - Juegos en vivo y finalizados)
   {
     id: "g1",
     homeTeam: getTeam("ldc"),
@@ -126,6 +136,13 @@ export const games: Game[] = [
     isTopInning: false,
     status: "live",
     scheduledAt: "2026-09-07T19:00:00-04:00",
+    stadium: "Estadio Universitario, Caracas",
+    homeHits: 8,
+    awayHits: 6,
+    homeErrors: 0,
+    awayErrors: 1,
+    pitcherProbableHome: "E. Rodríguez (3-1, 2.84 ERA)",
+    pitcherProbableAway: "J. Hernández (2-3, 4.12 ERA)",
   },
   {
     id: "g2",
@@ -137,7 +154,54 @@ export const games: Game[] = [
     isTopInning: true,
     status: "live",
     scheduledAt: "2026-09-07T19:00:00-04:00",
+    stadium: "Estadio Antonio Herrera Gutiérrez, Barquisimeto",
+    homeHits: 4,
+    awayHits: 9,
+    homeErrors: 2,
+    awayErrors: 0,
+    pitcherProbableHome: "R. Rivero (4-2, 3.10 ERA)",
+    pitcherProbableAway: "M. Castillo (5-0, 1.95 ERA)",
   },
+  {
+    id: "g-sep7-3",
+    homeTeam: getTeam("tdlg"),
+    awayTeam: getTeam("cdl"),
+    homeScore: 6,
+    awayScore: 2,
+    inning: 9,
+    isTopInning: false,
+    status: "final",
+    scheduledAt: "2026-09-07T17:00:00-04:00",
+    stadium: "Estadio Jorge Luis García Carneiro, Macuto",
+    homeHits: 10,
+    awayHits: 5,
+    homeErrors: 1,
+    awayErrors: 2,
+    pitcherWin: "A. Idrogo (4-1)",
+    pitcherLoss: "G. Moscoso (2-4)",
+    pitcherSave: "A. Cavanerio (8)",
+  },
+  {
+    id: "g-sep7-4",
+    homeTeam: getTeam("cda_or"),
+    awayTeam: getTeam("bdm"),
+    homeScore: 8,
+    awayScore: 7,
+    inning: 9,
+    isTopInning: false,
+    status: "final",
+    scheduledAt: "2026-09-07T19:00:00-04:00",
+    stadium: "Estadio Alfonso 'Chico' Carrasquel, Puerto La Cruz",
+    homeHits: 12,
+    awayHits: 11,
+    homeErrors: 0,
+    awayErrors: 1,
+    pitcherWin: "L. Chirinos (2-0)",
+    pitcherLoss: "C. Navas (1-3)",
+    pitcherSave: "R. Rodríguez (11)",
+  },
+
+  // 8 de Septiembre (Mañana - Programados)
   {
     id: "g3",
     homeTeam: getTeam("tda"),
@@ -148,6 +212,9 @@ export const games: Game[] = [
     isTopInning: true,
     status: "scheduled",
     scheduledAt: "2026-09-08T18:30:00-04:00",
+    stadium: "Estadio José Pérez Colmenares, Maracay",
+    pitcherProbableHome: "Y. Pino (2-2, 3.45 ERA)",
+    pitcherProbableAway: "R. Pinto (3-1, 2.90 ERA)",
   },
   {
     id: "g4",
@@ -159,7 +226,40 @@ export const games: Game[] = [
     isTopInning: true,
     status: "scheduled",
     scheduledAt: "2026-09-08T19:00:00-04:00",
+    stadium: "Estadio Nueva Esparta, Porlamar",
+    pitcherProbableHome: "F. Morales (1-4, 4.80 ERA)",
+    pitcherProbableAway: "J. Martínez (3-3, 3.75 ERA)",
   },
+  {
+    id: "g-sep8-3",
+    homeTeam: getTeam("ndm"),
+    awayTeam: getTeam("ldc"),
+    homeScore: 0,
+    awayScore: 0,
+    inning: 0,
+    isTopInning: true,
+    status: "scheduled",
+    scheduledAt: "2026-09-08T19:00:00-04:00",
+    stadium: "Estadio José Bernardo Pérez, Valencia",
+    pitcherProbableHome: "E. Leal (4-1, 2.65 ERA)",
+    pitcherProbableAway: "A. Rondón (5-2, 3.05 ERA)",
+  },
+  {
+    id: "g-sep8-4",
+    homeTeam: getTeam("adz"),
+    awayTeam: getTeam("cda_or"),
+    homeScore: 0,
+    awayScore: 0,
+    inning: 0,
+    isTopInning: true,
+    status: "scheduled",
+    scheduledAt: "2026-09-08T19:00:00-04:00",
+    stadium: "Estadio Luis Aparicio 'El Grande', Maracaibo",
+    pitcherProbableHome: "S. Tomshaw (3-0, 2.15 ERA)",
+    pitcherProbableAway: "D. Tomalin (1-2, 4.30 ERA)",
+  },
+
+  // 6 de Septiembre (Ayer - Finalizados)
   {
     id: "g5",
     homeTeam: getTeam("adz"),
@@ -170,6 +270,63 @@ export const games: Game[] = [
     isTopInning: false,
     status: "final",
     scheduledAt: "2026-09-06T19:00:00-04:00",
+    stadium: "Estadio Luis Aparicio 'El Grande', Maracaibo",
+    homeHits: 9,
+    awayHits: 13,
+    homeErrors: 2,
+    awayErrors: 0,
+    pitcherWin: "R. Suárez (3-1)",
+    pitcherLoss: "E. Paredes (0-2)",
+    pitcherSave: "A. Vizcaíno (5)",
+  },
+  {
+    id: "g-sep6-2",
+    homeTeam: getTeam("ndm"),
+    awayTeam: getTeam("cda"),
+    homeScore: 3,
+    awayScore: 1,
+    inning: 9,
+    isTopInning: false,
+    status: "final",
+    scheduledAt: "2026-09-06T17:30:00-04:00",
+    stadium: "Estadio José Bernardo Pérez, Valencia",
+    homeHits: 7,
+    awayHits: 4,
+    homeErrors: 0,
+    awayErrors: 1,
+    pitcherWin: "Y. Méndez (5-1)",
+    pitcherLoss: "N. Molina (3-2)",
+    pitcherSave: "A. Machado (9)",
+  },
+
+  // 9 de Septiembre (Próximos)
+  {
+    id: "g-sep9-1",
+    homeTeam: getTeam("ldc"),
+    awayTeam: getTeam("tdlg"),
+    homeScore: 0,
+    awayScore: 0,
+    inning: 0,
+    isTopInning: true,
+    status: "scheduled",
+    scheduledAt: "2026-09-09T19:00:00-04:00",
+    stadium: "Estadio Universitario, Caracas",
+    pitcherProbableHome: "J. Mujica (2-1, 3.20 ERA)",
+    pitcherProbableAway: "E. Barboza (1-0, 2.50 ERA)",
+  },
+  {
+    id: "g-sep9-2",
+    homeTeam: getTeam("cda"),
+    awayTeam: getTeam("tda"),
+    homeScore: 0,
+    awayScore: 0,
+    inning: 0,
+    isTopInning: true,
+    status: "scheduled",
+    scheduledAt: "2026-09-09T19:00:00-04:00",
+    stadium: "Estadio Antonio Herrera Gutiérrez, Barquisimeto",
+    pitcherProbableHome: "M. Socolovich (3-3, 3.88 ERA)",
+    pitcherProbableAway: "A. Benítez (2-4, 4.50 ERA)",
   },
 ];
 
