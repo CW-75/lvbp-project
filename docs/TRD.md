@@ -43,3 +43,7 @@ Decoupled hybrid architecture:
 - **Strict State Segregation:** Use `Zustand` EXCLUSIVELY for live SSE states (in-progress games). Use `TanStack Query` EXCLUSIVELY for fetching historical/static REST endpoints. Never mix these responsibilities.
 - **App Router Paradigms:** Default to React Server Components. The `"use client"` directive must only be used in component trees requiring pure interactivity or consuming Zustand/TanStack hooks (e.g., Scorekeeper's visual matrix).
 - **Styling Restrictions:** Custom CSS files are prohibited (except initialization). Use `Tailwind CSS` utility classes and `shadcn/ui` components for all styling, including complex SVG manipulations for the diamond and strike zone.
+- **Tailwind CSS Clean Syntax & Design Tokens:**
+  - **Canonical Token Utilities:** Always use standard Tailwind theme utility classes (e.g., `text-muted-foreground`, `bg-surface`, `text-primary`, `bg-background`, `border-border`, `text-foreground`) instead of arbitrary CSS variable syntax (e.g., `text-[var(--muted-foreground)]`, `bg-[var(--surface)]`, `text-[var(--primary)]`).
+  - **Forbidden Redundancies:** Arbitrary bracket notation (`[var(--...)]` or `[color:...]`) is strictly prohibited when the corresponding design token or utility is declared in `@theme` / `globals.css`.
+  - **Class Composition:** Use `cn()` (`clsx` + `tailwind-merge`) for dynamic and conditional class combinations to prevent style collisions and keep markup clean.

@@ -26,8 +26,8 @@ const categoryColors: Record<string, string> = {
   Resultados: "bg-emerald-500/15 text-emerald-400",
   Fichajes: "bg-blue-500/15 text-blue-400",
   Equipos: "bg-purple-500/15 text-purple-400",
-  Temporada: "bg-[var(--accent)]/15 text-[var(--accent)]",
-  Destacado: "bg-[var(--primary)]/15 text-[var(--primary)]",
+  Temporada: "bg-accent/15 text-accent",
+  Destacado: "bg-primary/15 text-primary",
 };
 
 export function NewsFeedSection() {
@@ -39,8 +39,8 @@ export function NewsFeedSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="mb-6 flex items-center gap-3">
-          <Newspaper className="size-5 text-[var(--muted-foreground)]" />
-          <h2 className="text-xl font-bold text-[var(--foreground)]">Noticias</h2>
+          <Newspaper className="size-5 text-muted-foreground" />
+          <h2 className="text-xl font-bold text-foreground">Noticias</h2>
         </div>
 
         {/* News grid */}
@@ -48,10 +48,10 @@ export function NewsFeedSection() {
           {articles.map((article) => (
             <Card
               key={article.id}
-              className="group cursor-pointer border-white/5 bg-[var(--surface)] transition-all hover:border-white/10 hover:bg-[var(--surface-alt)]"
+              className="group cursor-pointer border-white/5 bg-surface transition-all hover:border-white/10 hover:bg-surface-alt"
             >
               {/* Color accent bar */}
-              <div className="h-0.5 rounded-t-xl bg-gradient-to-r from-[var(--primary)]/50 to-transparent" />
+              <div className="h-0.5 rounded-t-xl bg-gradient-to-r from-primary/50 to-transparent" />
 
               <CardHeader className="gap-3 pb-2">
                 <div className="flex items-center justify-between">
@@ -61,18 +61,18 @@ export function NewsFeedSection() {
                   >
                     {article.category}
                   </Badge>
-                  <span className="flex items-center gap-1 text-[10px] text-[var(--muted-foreground)]">
+                  <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
                     <Clock className="size-3" />
                     {formatRelativeDate(article.publishedAt)}
                   </span>
                 </div>
-                <CardTitle className="text-sm font-bold leading-snug text-[var(--foreground)] transition-colors group-hover:text-[var(--primary)]">
+                <CardTitle className="text-sm font-bold leading-snug text-foreground transition-colors group-hover:text-primary">
                   {article.title}
                 </CardTitle>
               </CardHeader>
 
               <CardContent>
-                <CardDescription className="line-clamp-2 text-xs leading-relaxed text-[var(--muted-foreground)]">
+                <CardDescription className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
                   {article.excerpt}
                 </CardDescription>
               </CardContent>

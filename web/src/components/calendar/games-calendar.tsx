@@ -29,7 +29,7 @@ function GameDetailCard({ game }: { game: Game }) {
   const isFinal = game.status === "final";
 
   return (
-    <Card className="overflow-hidden border border-white/10 bg-[var(--surface)] transition-all hover:border-white/20 hover:shadow-lg">
+    <Card className="overflow-hidden border border-white/10 bg-surface transition-all hover:border-white/20 hover:shadow-lg">
       {/* Top Banner / Status */}
       <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-4 py-3 text-xs">
         <div className="flex items-center gap-2">
@@ -42,8 +42,8 @@ function GameDetailCard({ game }: { game: Game }) {
         </div>
 
         {game.stadium && (
-          <span className="flex items-center gap-1 text-[var(--muted-foreground)] truncate max-w-[200px]" title={game.stadium}>
-            <MapPin className="size-3 shrink-0 text-[var(--primary)]" />
+          <span className="flex items-center gap-1 text-muted-foreground truncate max-w-[200px]" title={game.stadium}>
+            <MapPin className="size-3 shrink-0 text-primary" />
             {game.stadium.split(",")[0]}
           </span>
         )}
@@ -61,27 +61,27 @@ function GameDetailCard({ game }: { game: Game }) {
               {game.awayTeam.logoInitials}
             </div>
             <div className="min-w-0">
-              <h4 className="truncate font-bold text-sm sm:text-base text-[var(--foreground)]">
+              <h4 className="truncate font-bold text-sm sm:text-base text-foreground">
                 {game.awayTeam.name}
               </h4>
-              <p className="text-xs text-[var(--muted-foreground)]">{game.awayTeam.city}</p>
+              <p className="text-xs text-muted-foreground">{game.awayTeam.city}</p>
             </div>
           </div>
 
           {/* Scores or VS */}
           <div className="col-span-2 text-center">
             {isLive || isFinal ? (
-              <div className="flex items-center justify-center gap-2 font-mono font-black text-xl sm:text-2xl text-[var(--foreground)]">
-                <span className={game.awayScore > game.homeScore ? "text-[var(--secondary)] font-extrabold" : ""}>
+              <div className="flex items-center justify-center gap-2 font-mono font-black text-xl sm:text-2xl text-foreground">
+                <span className={game.awayScore > game.homeScore ? "text-accent font-extrabold" : ""}>
                   {game.awayScore}
                 </span>
-                <span className="text-[var(--muted-foreground)] font-normal text-sm">-</span>
-                <span className={game.homeScore > game.awayScore ? "text-[var(--secondary)] font-extrabold" : ""}>
+                <span className="text-muted-foreground font-normal text-sm">-</span>
+                <span className={game.homeScore > game.awayScore ? "text-accent font-extrabold" : ""}>
                   {game.homeScore}
                 </span>
               </div>
             ) : (
-              <span className="rounded-full bg-white/5 px-2.5 py-1 font-bold text-xs text-[var(--muted-foreground)]">
+              <span className="rounded-full bg-white/5 px-2.5 py-1 font-bold text-xs text-muted-foreground">
                 VS
               </span>
             )}
@@ -90,10 +90,10 @@ function GameDetailCard({ game }: { game: Game }) {
           {/* Home Team */}
           <div className="col-span-5 flex items-center justify-between sm:justify-end gap-3 text-right">
             <div className="min-w-0 order-2 sm:order-1">
-              <h4 className="truncate font-bold text-sm sm:text-base text-[var(--foreground)]">
+              <h4 className="truncate font-bold text-sm sm:text-base text-foreground">
                 {game.homeTeam.name}
               </h4>
-              <p className="text-xs text-[var(--muted-foreground)]">{game.homeTeam.city}</p>
+              <p className="text-xs text-muted-foreground">{game.homeTeam.city}</p>
             </div>
             <div
               className="flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-xl font-bold text-white text-sm shadow-md order-1 sm:order-2"
@@ -108,26 +108,26 @@ function GameDetailCard({ game }: { game: Game }) {
         {(isLive || isFinal) && game.awayHits !== undefined && (
           <div className="mt-4 border-t border-white/5 pt-3">
             <div className="grid grid-cols-4 items-center rounded-lg bg-black/20 p-2 text-center text-xs">
-              <span className="font-semibold text-[var(--muted-foreground)]">Equipo</span>
-              <span className="font-semibold text-[var(--muted-foreground)]">C (Runs)</span>
-              <span className="font-semibold text-[var(--muted-foreground)]">H (Hits)</span>
-              <span className="font-semibold text-[var(--muted-foreground)]">E (Err)</span>
+              <span className="font-semibold text-muted-foreground">Equipo</span>
+              <span className="font-semibold text-muted-foreground">C (Runs)</span>
+              <span className="font-semibold text-muted-foreground">H (Hits)</span>
+              <span className="font-semibold text-muted-foreground">E (Err)</span>
 
-              <span className="truncate font-bold text-left pl-2 text-[var(--foreground)]">{game.awayTeam.shortName}</span>
-              <span className="font-mono font-bold text-[var(--foreground)]">{game.awayScore}</span>
-              <span className="font-mono text-[var(--muted-foreground)]">{game.awayHits}</span>
-              <span className="font-mono text-[var(--muted-foreground)]">{game.awayErrors ?? 0}</span>
+              <span className="truncate font-bold text-left pl-2 text-foreground">{game.awayTeam.shortName}</span>
+              <span className="font-mono font-bold text-foreground">{game.awayScore}</span>
+              <span className="font-mono text-muted-foreground">{game.awayHits}</span>
+              <span className="font-mono text-muted-foreground">{game.awayErrors ?? 0}</span>
 
-              <span className="truncate font-bold text-left pl-2 text-[var(--foreground)]">{game.homeTeam.shortName}</span>
-              <span className="font-mono font-bold text-[var(--foreground)]">{game.homeScore}</span>
-              <span className="font-mono text-[var(--muted-foreground)]">{game.homeHits}</span>
-              <span className="font-mono text-[var(--muted-foreground)]">{game.homeErrors ?? 0}</span>
+              <span className="truncate font-bold text-left pl-2 text-foreground">{game.homeTeam.shortName}</span>
+              <span className="font-mono font-bold text-foreground">{game.homeScore}</span>
+              <span className="font-mono text-muted-foreground">{game.homeHits}</span>
+              <span className="font-mono text-muted-foreground">{game.homeErrors ?? 0}</span>
             </div>
           </div>
         )}
 
         {/* Pitchers / Decision Info */}
-        <div className="mt-3 pt-2 text-xs text-[var(--muted-foreground)] flex flex-wrap gap-y-1 gap-x-4">
+        <div className="mt-3 pt-2 text-xs text-muted-foreground flex flex-wrap gap-y-1 gap-x-4">
           {isFinal && game.pitcherWin && (
             <span>
               <strong className="text-emerald-400">G:</strong> {game.pitcherWin}
@@ -140,7 +140,7 @@ function GameDetailCard({ game }: { game: Game }) {
           )}
           {isFinal && game.pitcherSave && (
             <span>
-              <strong className="text-[var(--secondary)]">S:</strong> {game.pitcherSave}
+              <strong className="text-accent">S:</strong> {game.pitcherSave}
             </span>
           )}
           {!isFinal && game.pitcherProbableAway && (
@@ -183,11 +183,11 @@ export function GamesCalendar() {
   return (
     <div className="space-y-8">
       {/* Date Selector Header */}
-      <div className="rounded-2xl border border-white/10 bg-[var(--surface)] p-4 shadow-xl">
+      <div className="rounded-2xl border border-white/10 bg-surface p-4 shadow-xl">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-2">
-            <CalendarIcon className="size-5 text-[var(--primary)]" />
-            <h3 className="font-bold text-lg text-[var(--foreground)]">Jornada Regular LVBP</h3>
+            <CalendarIcon className="size-5 text-primary" />
+            <h3 className="font-bold text-lg text-foreground">Jornada Regular LVBP</h3>
           </div>
 
           {/* Date Selector Pills */}
@@ -200,8 +200,8 @@ export function GamesCalendar() {
                   onClick={() => setSelectedDate(dateObj.key)}
                   className={`flex flex-col items-center justify-center rounded-xl px-4 py-2 text-xs font-semibold transition-all shrink-0 ${
                     isSelected
-                      ? "bg-[var(--primary)] text-white shadow-lg shadow-[var(--primary)]/30 scale-105"
-                      : "bg-white/5 text-[var(--muted-foreground)] hover:bg-white/10 hover:text-white"
+                      ? "bg-primary text-white shadow-lg shadow-primary/30 scale-105"
+                      : "bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-white"
                   }`}
                 >
                   <span className="text-[10px] uppercase opacity-80">{dateObj.short}</span>
@@ -228,7 +228,7 @@ export function GamesCalendar() {
                 className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
                   statusFilter === tab.id
                     ? "bg-white/15 text-white font-bold"
-                    : "text-[var(--muted-foreground)] hover:text-white"
+                    : "text-muted-foreground hover:text-white"
                 }`}
               >
                 {tab.label}
@@ -238,11 +238,11 @@ export function GamesCalendar() {
 
           {/* Team Filter Dropdown */}
           <div className="flex items-center gap-2">
-            <Filter className="size-4 text-[var(--muted-foreground)]" />
+            <Filter className="size-4 text-muted-foreground" />
             <select
               value={selectedTeamId}
               onChange={(e) => setSelectedTeamId(e.target.value)}
-              className="rounded-lg border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-medium text-[var(--foreground)] focus:border-[var(--primary)] focus:outline-none"
+              className="rounded-lg border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-medium text-foreground focus:border-primary focus:outline-none"
             >
               <option value="all">Todos los equipos</option>
               {teams.map((t) => (
@@ -263,14 +263,14 @@ export function GamesCalendar() {
           ))}
         </div>
       ) : (
-        <Card className="border border-white/10 bg-[var(--surface)] p-12 text-center">
+        <Card className="border border-white/10 bg-surface p-12 text-center">
           <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-white/5">
-            <Trophy className="size-6 text-[var(--muted-foreground)]" />
+            <Trophy className="size-6 text-muted-foreground" />
           </div>
-          <h3 className="mt-4 font-bold text-lg text-[var(--foreground)]">
+          <h3 className="mt-4 font-bold text-lg text-foreground">
             No hay partidos registrados
           </h3>
-          <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+          <p className="mt-1 text-sm text-muted-foreground">
             No se encontraron juegos para los filtros seleccionados en esta fecha.
           </p>
           <Button
