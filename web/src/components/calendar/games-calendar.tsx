@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { games, teams } from "@/lib/mock-data";
 import type { Game, Team } from "@/lib/mock-data";
+import { GameStatusBadge } from "@/components/ui/game-status-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,7 +13,6 @@ import {
   ChevronRight,
   Filter,
   MapPin,
-  Radio,
   Trophy,
 } from "lucide-react";
 
@@ -28,31 +28,17 @@ function GameDetailCard({ game }: { game: Game }) {
   const isLive = game.status === "live";
   const isFinal = game.status === "final";
 
-  const formattedTime = new Date(game.scheduledAt).toLocaleTimeString("es-VE", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
-
   return (
     <Card className="overflow-hidden border border-white/10 bg-[var(--surface)] transition-all hover:border-white/20 hover:shadow-lg">
       {/* Top Banner / Status */}
       <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-4 py-3 text-xs">
         <div className="flex items-center gap-2">
-          {isLive ? (
-            <Badge variant="destructive" className="animate-pulse gap-1.5 font-bold">
-              <Radio className="size-3" />
-              EN VIVO — Inning {game.inning} ({game.isTopInning ? "Alta" : "Baja"})
-            </Badge>
-          ) : isFinal ? (
-            <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 font-semibold">
-              FINALIZADO
-            </Badge>
-          ) : (
-            <Badge variant="outline" className="text-[var(--muted-foreground)]">
-              {formattedTime} HRS
-            </Badge>
-          )}
+          <GameStatusBadge
+            status={game.status}
+            inning={game.inning}
+            isTopInning={game.isTopInning}
+            scheduledAt={game.scheduledAt}
+          />
         </div>
 
         {game.stadium && (
