@@ -8,7 +8,7 @@ import { ChevronRight, Radio } from "lucide-react";
 function GameCard({ game }: { game: Game }) {
   const isLive = game.status === "live";
   return (
-    <div className="group relative flex min-w-[280px] flex-col gap-3 rounded-xl border border-white/5 bg-surface p-4 transition-all hover:border-white/10 hover:bg-surface-alt">
+    <div className="group relative flex min-w-70 flex-col gap-3 rounded-xl border border-white/5 bg-surface p-4 transition-all hover:border-white/10 hover:bg-surface-alt">
       {/* Status badge */}
       <div className="flex items-center justify-between">
         <GameStatusBadge

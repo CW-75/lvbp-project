@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { games, teams } from "@/lib/mock-data";
-import type { Game, Team } from "@/lib/mock-data";
-import { GameStatusBadge } from "@/components/ui/game-status-badge";
-import { Badge } from "@/components/ui/badge";
+import { CalendarDetailsStatsCard } from "@/components/calendar/calendar-details-stats-card";
+import { CalendarPitcherInfo } from "@/components/calendar/calendar-pitcher-info";
+import { CalendarTeamInfo } from "@/components/calendar/calendar-team-info";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { GameStatusBadge } from "@/components/ui/game-status-badge";
+import type { Game } from "@/lib/mock-data";
+import { games, teams } from "@/lib/mock-data";
 import {
   Calendar as CalendarIcon,
   ChevronLeft,
@@ -15,6 +16,7 @@ import {
   MapPin,
   Trophy,
 } from "lucide-react";
+import { useState } from "react";
 
 // Fechas disponibles en los datos mock
 const AVAILABLE_DATES = [
@@ -31,7 +33,7 @@ function GameDetailCard({ game }: { game: Game }) {
   return (
     <Card className="overflow-hidden border border-white/10 bg-surface transition-all hover:border-white/20 hover:shadow-lg">
       {/* Top Banner / Status */}
-      <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-4 py-3 text-xs">
+      <div className="flex items-center justify-between border-b border-white/5 bg-white/2 px-4 py-3 text-xs">
         <div className="flex items-center gap-2">
           <GameStatusBadge
             status={game.status}
@@ -42,7 +44,7 @@ function GameDetailCard({ game }: { game: Game }) {
         </div>
 
         {game.stadium && (
-          <span className="flex items-center gap-1 text-muted-foreground truncate max-w-[200px]" title={game.stadium}>
+          <span className="flex items-center gap-1 text-muted-foreground truncate max-w-50" title={game.stadium}>
             <MapPin className="size-3 shrink-0 text-primary" />
             {game.stadium.split(",")[0]}
           </span>
@@ -53,20 +55,7 @@ function GameDetailCard({ game }: { game: Game }) {
         {/* Teams Matchup Grid */}
         <div className="grid grid-cols-12 items-center gap-2 sm:gap-4">
           {/* Away Team */}
-          <div className="col-span-5 flex items-center justify-between sm:justify-start gap-3">
-            <div
-              className="flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-xl font-bold text-white text-sm shadow-md"
-              style={{ backgroundColor: game.awayTeam.primaryColor }}
-            >
-              {game.awayTeam.logoInitials}
-            </div>
-            <div className="min-w-0">
-              <h4 className="truncate font-bold text-sm sm:text-base text-foreground">
-                {game.awayTeam.name}
-              </h4>
-              <p className="text-xs text-muted-foreground">{game.awayTeam.city}</p>
-            </div>
-          </div>
+          <CalendarTeamInfo team={game.awayTeam} align="away" />
 
           {/* Scores or VS */}
           <div className="col-span-2 text-center">
@@ -88,72 +77,16 @@ function GameDetailCard({ game }: { game: Game }) {
           </div>
 
           {/* Home Team */}
-          <div className="col-span-5 flex items-center justify-between sm:justify-end gap-3 text-right">
-            <div className="min-w-0 order-2 sm:order-1">
-              <h4 className="truncate font-bold text-sm sm:text-base text-foreground">
-                {game.homeTeam.name}
-              </h4>
-              <p className="text-xs text-muted-foreground">{game.homeTeam.city}</p>
-            </div>
-            <div
-              className="flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-xl font-bold text-white text-sm shadow-md order-1 sm:order-2"
-              style={{ backgroundColor: game.homeTeam.primaryColor }}
-            >
-              {game.homeTeam.logoInitials}
-            </div>
-          </div>
+          <CalendarTeamInfo team={game.homeTeam} align="home" />
         </div>
 
         {/* Detailed Stats (R - H - E) */}
         {(isLive || isFinal) && game.awayHits !== undefined && (
-          <div className="mt-4 border-t border-white/5 pt-3">
-            <div className="grid grid-cols-4 items-center rounded-lg bg-black/20 p-2 text-center text-xs">
-              <span className="font-semibold text-muted-foreground">Equipo</span>
-              <span className="font-semibold text-muted-foreground">C (Runs)</span>
-              <span className="font-semibold text-muted-foreground">H (Hits)</span>
-              <span className="font-semibold text-muted-foreground">E (Err)</span>
-
-              <span className="truncate font-bold text-left pl-2 text-foreground">{game.awayTeam.shortName}</span>
-              <span className="font-mono font-bold text-foreground">{game.awayScore}</span>
-              <span className="font-mono text-muted-foreground">{game.awayHits}</span>
-              <span className="font-mono text-muted-foreground">{game.awayErrors ?? 0}</span>
-
-              <span className="truncate font-bold text-left pl-2 text-foreground">{game.homeTeam.shortName}</span>
-              <span className="font-mono font-bold text-foreground">{game.homeScore}</span>
-              <span className="font-mono text-muted-foreground">{game.homeHits}</span>
-              <span className="font-mono text-muted-foreground">{game.homeErrors ?? 0}</span>
-            </div>
-          </div>
+          <CalendarDetailsStatsCard game={game} />
         )}
 
         {/* Pitchers / Decision Info */}
-        <div className="mt-3 pt-2 text-xs text-muted-foreground flex flex-wrap gap-y-1 gap-x-4">
-          {isFinal && game.pitcherWin && (
-            <span>
-              <strong className="text-emerald-400">G:</strong> {game.pitcherWin}
-            </span>
-          )}
-          {isFinal && game.pitcherLoss && (
-            <span>
-              <strong className="text-rose-400">P:</strong> {game.pitcherLoss}
-            </span>
-          )}
-          {isFinal && game.pitcherSave && (
-            <span>
-              <strong className="text-accent">S:</strong> {game.pitcherSave}
-            </span>
-          )}
-          {!isFinal && game.pitcherProbableAway && (
-            <span>
-              <strong>Lanzador {game.awayTeam.shortName}:</strong> {game.pitcherProbableAway}
-            </span>
-          )}
-          {!isFinal && game.pitcherProbableHome && (
-            <span>
-              <strong>Lanzador {game.homeTeam.shortName}:</strong> {game.pitcherProbableHome}
-            </span>
-          )}
-        </div>
+        <CalendarPitcherInfo game={game} />
       </CardContent>
     </Card>
   );
@@ -191,7 +124,10 @@ export function GamesCalendar() {
           </div>
 
           {/* Date Selector Pills */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+          <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1 md:pb-0">
+            <button className="rounded-md pa-2 bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-white cursor-pointer p-2">
+              <ChevronLeft className="size-4 text-muted-foreground" />
+            </button>
             {AVAILABLE_DATES.map((dateObj) => {
               const isSelected = selectedDate === dateObj.key;
               return (
@@ -209,6 +145,9 @@ export function GamesCalendar() {
                 </button>
               );
             })}
+            <button className="rounded-md pa-2 bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-white cursor-pointer p-2">
+              <ChevronRight className="size-4 text-muted-foreground" />
+            </button>
           </div>
         </div>
 

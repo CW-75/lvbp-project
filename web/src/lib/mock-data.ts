@@ -8,6 +8,7 @@ export interface Team {
   city: string;
   primaryColor: string;
   logoInitials: string;
+  logoUrl?: string;
 }
 
 export interface Game {
@@ -58,15 +59,17 @@ export const teams: Team[] = [
     name: "Leones del Caracas",
     shortName: "LEO",
     city: "Caracas",
-    primaryColor: "#C8102E",
+    primaryColor: "#0B1A32",
     logoInitials: "LC",
+    logoUrl: "/logo-leones.svg",
   },
   {
     id: "ndm",
     name: "Navegantes del Magallanes",
     shortName: "MAG",
     city: "Valencia",
-    primaryColor: "#F57C00",
+    primaryColor: "#FFFFFF",
+    logoUrl: "/logo-magallanes.svg",
     logoInitials: "NM",
   },
   {
@@ -74,7 +77,8 @@ export const teams: Team[] = [
     name: "Tiburones de La Guaira",
     shortName: "LAG",
     city: "La Guaira",
-    primaryColor: "#1565C0",
+    primaryColor: "#0c2037ff",
+    logoUrl: "/logo-tiburones.svg",
     logoInitials: "TG",
   },
   {
@@ -82,7 +86,8 @@ export const teams: Team[] = [
     name: "Cardenales de Lara",
     shortName: "LAR",
     city: "Barquisimeto",
-    primaryColor: "#D32F2F",
+    primaryColor: "#af2005ff",
+    logoUrl: "/logo-cardenales.svg",
     logoInitials: "CL",
   },
   {
@@ -90,23 +95,26 @@ export const teams: Team[] = [
     name: "Águilas del Zulia",
     shortName: "ZUL",
     city: "Maracaibo",
-    primaryColor: "#FFB300",
+    primaryColor: "#cc6001ff",
     logoInitials: "AZ",
+    logoUrl: "/logo-aguilas.svg",
   },
   {
     id: "cda_or",
     name: "Caribes de Anzoátegui",
     shortName: "ANZ",
     city: "Puerto La Cruz",
-    primaryColor: "#00838F",
+    primaryColor: "#f4c794ff",
     logoInitials: "CA",
+    logoUrl: "/logo-caribes.svg",
   },
   {
     id: "bdm",
     name: "Bravos de Margarita",
     shortName: "MAR",
     city: "Porlamar",
-    primaryColor: "#00ACC1",
+    primaryColor: "#2c626cff",
+    logoUrl: "/logo-bravos.svg",
     logoInitials: "BM",
   },
   {
@@ -114,8 +122,9 @@ export const teams: Team[] = [
     name: "Tigres de Aragua",
     shortName: "ARA",
     city: "Maracay",
-    primaryColor: "#2E7D32",
+    primaryColor: "#00205bff",
     logoInitials: "TA",
+    logoUrl: "/logo-tigres.svg",
   },
 ];
 

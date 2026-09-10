@@ -20,7 +20,7 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden">
       {/* Background gradient that simulates a hero image */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/10" />
+      <div className="absolute inset-0 bg-linear-to-br from-primary/20 via-background to-accent/10" />
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]" />
 
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -57,9 +57,9 @@ export function HeroSection() {
           </div>
 
           {/* Visual accent — abstract diamond shape */}
-          <div className="hidden flex-shrink-0 lg:block">
+          <div className="hidden shrink-0 lg:block">
             <div className="relative size-72">
-              <div className="absolute inset-0 rotate-45 rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 backdrop-blur-sm" />
+              <div className="absolute inset-0 rotate-45 rounded-3xl bg-linear-to-br from-primary/20 to-accent/20 backdrop-blur-sm" />
               <div className="absolute inset-4 rotate-45 rounded-2xl border border-white/10 bg-surface/50 backdrop-blur-md" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">

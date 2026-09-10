@@ -60,7 +60,7 @@ export function StandingsSection() {
               {standings.map((entry, index) => (
                 <TableRow
                   key={entry.team.id}
-                  className="border-white/5 transition-colors hover:bg-white/[0.02]"
+                  className="border-white/5 transition-colors hover:bg-white/2"
                 >
                   <TableCell className="text-center text-sm font-medium text-muted-foreground">
                     {index + 1}

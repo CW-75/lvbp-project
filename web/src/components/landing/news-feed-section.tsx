@@ -51,7 +51,7 @@ export function NewsFeedSection() {
               className="group cursor-pointer border-white/5 bg-surface transition-all hover:border-white/10 hover:bg-surface-alt"
             >
               {/* Color accent bar */}
-              <div className="h-0.5 rounded-t-xl bg-gradient-to-r from-primary/50 to-transparent" />
+              <div className="h-0.5 rounded-t-xl bg-linear-to-r from-primary/50 to-transparent" />
 
               <CardHeader className="gap-3 pb-2">
                 <div className="flex items-center justify-between">
