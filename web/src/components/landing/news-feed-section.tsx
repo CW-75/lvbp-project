@@ -1,4 +1,5 @@
 import { newsArticles } from "@/lib/mock-data";
+import type { NewsArticle } from "@/lib/mock-data";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -46,40 +47,46 @@ export function NewsFeedSection() {
         {/* News grid */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
-            <Card
-              key={article.id}
-              className="group cursor-pointer border-white/5 bg-surface transition-all hover:border-white/10 hover:bg-surface-alt"
-            >
-              {/* Color accent bar */}
-              <div className="h-0.5 rounded-t-xl bg-linear-to-r from-primary/50 to-transparent" />
-
-              <CardHeader className="gap-3 pb-2">
-                <div className="flex items-center justify-between">
-                  <Badge
-                    variant="secondary"
-                    className={`border-0 text-[10px] font-semibold ${categoryColors[article.category] ?? ""}`}
-                  >
-                    {article.category}
-                  </Badge>
-                  <time dateTime={article.publishedAt} className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                    <Clock className="size-3" />
-                    {formatRelativeDate(article.publishedAt)}
-                  </time>
-                </div>
-                <CardTitle className="text-sm font-bold leading-snug text-foreground transition-colors group-hover:text-primary">
-                  {article.title}
-                </CardTitle>
-              </CardHeader>
-
-              <CardContent>
-                <CardDescription className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
-                  {article.excerpt}
-                </CardDescription>
-              </CardContent>
-            </Card>
+            <NewsCard key={article.id} article={article} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function NewsCard({ article }: { article: NewsArticle }) {
+  return (
+    <Card className="group cursor-pointer border-white/5 bg-surface transition-all hover:border-white/10 hover:bg-surface-alt">
+      {/* Color accent bar */}
+      <div className="h-0.5 rounded-t-xl bg-linear-to-r from-primary/50 to-transparent" />
+
+      <CardHeader className="gap-3 pb-2">
+        <div className="flex items-center justify-between">
+          <Badge
+            variant="secondary"
+            className={`border-0 text-[10px] font-semibold ${categoryColors[article.category] ?? ""}`}
+          >
+            {article.category}
+          </Badge>
+          <time
+            dateTime={article.publishedAt}
+            className="flex items-center gap-1 text-[10px] text-muted-foreground"
+          >
+            <Clock className="size-3" />
+            {formatRelativeDate(article.publishedAt)}
+          </time>
+        </div>
+        <CardTitle className="text-sm font-bold leading-snug text-foreground transition-colors group-hover:text-primary">
+          {article.title}
+        </CardTitle>
+      </CardHeader>
+
+      <CardContent>
+        <CardDescription className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+          {article.excerpt}
+        </CardDescription>
+      </CardContent>
+    </Card>
   );
 }
