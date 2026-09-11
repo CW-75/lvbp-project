@@ -1,4 +1,3 @@
-import { standings } from "@/lib/mock-data";
 import {
   Table,
   TableBody,
@@ -7,7 +6,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Trophy, ChevronRight } from "lucide-react";
+import { standings } from "@/lib/mock-data";
+import type { StandingsEntry } from "@/lib/mock-data";
+import { ChevronRight, Trophy } from "lucide-react";
+import { TeamLogo } from "../ui/team-logo";
 
 export function StandingsSection() {
   return (
@@ -58,52 +60,50 @@ export function StandingsSection() {
             </TableHeader>
             <TableBody>
               {standings.map((entry, index) => (
-                <TableRow
-                  key={entry.team.id}
-                  className="border-white/5 transition-colors hover:bg-white/2"
-                >
-                  <TableCell className="text-center text-sm font-medium text-muted-foreground">
-                    {index + 1}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2.5">
-                      <div
-                        className="flex size-6 items-center justify-center rounded text-[10px] font-bold text-white"
-                        style={{ backgroundColor: entry.team.primaryColor }}
-                      >
-                        {entry.team.logoInitials}
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">
-                          {entry.team.shortName}
-                        </p>
-                        <p className="hidden text-[10px] text-muted-foreground sm:block">
-                          {entry.team.city}
-                        </p>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-center text-sm tabular-nums text-foreground">
-                    {entry.gamesPlayed}
-                  </TableCell>
-                  <TableCell className="text-center text-sm font-semibold tabular-nums text-emerald-400">
-                    {entry.wins}
-                  </TableCell>
-                  <TableCell className="text-center text-sm tabular-nums text-red-400">
-                    {entry.losses}
-                  </TableCell>
-                  <TableCell className="text-center text-sm font-bold tabular-nums text-foreground">
-                    {entry.pct}
-                  </TableCell>
-                  <TableCell className="text-center text-sm tabular-nums text-muted-foreground">
-                    {entry.diff}
-                  </TableCell>
-                </TableRow>
+                <StandingsRow key={entry.team.id} entry={entry} position={index + 1} />
               ))}
             </TableBody>
           </Table>
         </div>
       </div>
     </section>
+  );
+}
+
+function StandingsRow({ entry, position }: { entry: StandingsEntry; position: number }) {
+  return (
+    <TableRow className="border-white/5 transition-colors hover:bg-white/2">
+      <TableCell className="text-center text-sm font-medium text-muted-foreground">
+        {position}
+      </TableCell>
+      <TableCell>
+        <div className="flex items-center gap-2.5">
+          <TeamLogo team={entry.team} />
+          <div>
+            <p className="text-sm font-semibold text-foreground">
+              {entry.team.shortName}
+            </p>
+            <p className="hidden text-[10px] text-muted-foreground sm:block">
+              {entry.team.city}
+            </p>
+          </div>
+        </div>
+      </TableCell>
+      <TableCell className="text-center text-sm tabular-nums text-foreground">
+        {entry.gamesPlayed}
+      </TableCell>
+      <TableCell className="text-center text-sm font-semibold tabular-nums text-emerald-400">
+        {entry.wins}
+      </TableCell>
+      <TableCell className="text-center text-sm tabular-nums text-red-400">
+        {entry.losses}
+      </TableCell>
+      <TableCell className="text-center text-sm font-bold tabular-nums text-foreground">
+        {entry.pct}
+      </TableCell>
+      <TableCell className="text-center text-sm tabular-nums text-muted-foreground">
+        {entry.diff}
+      </TableCell>
+    </TableRow>
   );
 }

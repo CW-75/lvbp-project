@@ -31,10 +31,10 @@ export function HeroSection() {
               <span className="inline-flex items-center rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold text-primary">
                 {featured.category}
               </span>
-              <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <time dateTime={featured.publishedAt} className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <Clock className="size-3" />
                 {formatRelativeDate(featured.publishedAt)}
-              </span>
+              </time>
             </div>
 
             <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl">
@@ -45,19 +45,17 @@ export function HeroSection() {
               {featured.excerpt}
             </p>
 
-            <div>
-              <button
-                type="button"
-                className="group inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
-              >
-                Leer más
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
-            </div>
+            <button
+              type="button"
+              className="group inline-flex w-fit items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
+            >
+              Leer más
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </button>
           </div>
 
           {/* Visual accent — abstract diamond shape */}
-          <div className="hidden shrink-0 lg:block">
+          <aside className="hidden shrink-0 lg:block">
             <div className="relative size-72">
               <div className="absolute inset-0 rotate-45 rounded-3xl bg-linear-to-br from-primary/20 to-accent/20 backdrop-blur-sm" />
               <div className="absolute inset-4 rotate-45 rounded-2xl border border-white/10 bg-surface/50 backdrop-blur-md" />
@@ -70,7 +68,7 @@ export function HeroSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </section>
