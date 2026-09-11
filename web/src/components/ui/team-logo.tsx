@@ -16,9 +16,9 @@ export function TeamLogo({ team, size = "md", className }: TeamLogoProps) {
   return (
     <div
       className={cn(
-        "flex size-16 sm:size-12 shrink-0 items-center justify-center rounded-xl font-bold text-white text-sm shadow-md overflow-hidden transition-all",
+        "flex shrink-0 size-12 items-center justify-center rounded-xl font-bold text-white text-sm shadow-md overflow-hidden transition-all",
         size === "sm" && "size-8 text-xs rounded-lg",
-        size === "lg" && "size-20 sm:size-16 text-base rounded-2xl",
+        size === "lg" && "size-16 sm:size-16 text-base rounded-2xl",
         className
       )}
       style={{ backgroundColor: team.primaryColor }}

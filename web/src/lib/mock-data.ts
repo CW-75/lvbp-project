@@ -82,7 +82,7 @@ export const teams: Team[] = [
     logoInitials: "TG",
   },
   {
-    id: "cda",
+    id: "cdl",
     name: "Cardenales de Lara",
     shortName: "LAR",
     city: "Barquisimeto",
@@ -100,7 +100,7 @@ export const teams: Team[] = [
     logoUrl: "/logo-aguilas.svg",
   },
   {
-    id: "cda_or",
+    id: "cda",
     name: "Caribes de Anzoátegui",
     shortName: "ANZ",
     city: "Puerto La Cruz",
@@ -118,7 +118,7 @@ export const teams: Team[] = [
     logoInitials: "BM",
   },
   {
-    id: "cdl",
+    id: "tda",
     name: "Tigres de Aragua",
     shortName: "ARA",
     city: "Maracay",
@@ -155,7 +155,7 @@ export const games: Game[] = [
   },
   {
     id: "g2",
-    homeTeam: getTeam("cda"),
+    homeTeam: getTeam("cdl"),
     awayTeam: getTeam("adz"),
     homeScore: 2,
     awayScore: 5,
@@ -174,7 +174,7 @@ export const games: Game[] = [
   {
     id: "g-sep7-3",
     homeTeam: getTeam("tdlg"),
-    awayTeam: getTeam("cdl"),
+    awayTeam: getTeam("tda"),
     homeScore: 6,
     awayScore: 2,
     inning: 9,
@@ -192,7 +192,7 @@ export const games: Game[] = [
   },
   {
     id: "g-sep7-4",
-    homeTeam: getTeam("cda_or"),
+    homeTeam: getTeam("cda"),
     awayTeam: getTeam("bdm"),
     homeScore: 8,
     awayScore: 7,
@@ -228,7 +228,7 @@ export const games: Game[] = [
   {
     id: "g4",
     homeTeam: getTeam("bdm"),
-    awayTeam: getTeam("cdl"),
+    awayTeam: getTeam("tda"),
     homeScore: 0,
     awayScore: 0,
     inning: 0,
@@ -256,7 +256,7 @@ export const games: Game[] = [
   {
     id: "g-sep8-4",
     homeTeam: getTeam("adz"),
-    awayTeam: getTeam("cda_or"),
+    awayTeam: getTeam("cda"),
     homeScore: 0,
     awayScore: 0,
     inning: 0,
@@ -291,7 +291,7 @@ export const games: Game[] = [
   {
     id: "g-sep6-2",
     homeTeam: getTeam("ndm"),
-    awayTeam: getTeam("cda"),
+    awayTeam: getTeam("cdl"),
     homeScore: 3,
     awayScore: 1,
     inning: 9,
@@ -325,7 +325,7 @@ export const games: Game[] = [
   },
   {
     id: "g-sep9-2",
-    homeTeam: getTeam("cda"),
+    homeTeam: getTeam("cdl"),
     awayTeam: getTeam("tda"),
     homeScore: 0,
     awayScore: 0,

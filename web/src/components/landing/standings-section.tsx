@@ -1,4 +1,3 @@
-import { standings } from "@/lib/mock-data";
 import {
   Table,
   TableBody,
@@ -7,7 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Trophy, ChevronRight } from "lucide-react";
+import { standings } from "@/lib/mock-data";
+import { ChevronRight, Trophy } from "lucide-react";
+import { TeamLogo } from "../ui/team-logo";
 
 export function StandingsSection() {
   return (
@@ -67,12 +68,13 @@ export function StandingsSection() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2.5">
-                      <div
+                      {/* <div
                         className="flex size-6 items-center justify-center rounded text-[10px] font-bold text-white"
                         style={{ backgroundColor: entry.team.primaryColor }}
                       >
                         {entry.team.logoInitials}
-                      </div>
+                      </div> */}
+                      <TeamLogo team={entry.team} />
                       <div>
                         <p className="text-sm font-semibold text-foreground">
                           {entry.team.shortName}
