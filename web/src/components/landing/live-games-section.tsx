@@ -1,7 +1,8 @@
 import { GameStatusBadge } from "@/components/ui/game-status-badge";
+import type { Game, Team } from "@/lib/mock-data";
 import { games } from "@/lib/mock-data";
-import type { Game } from "@/lib/mock-data";
 import { ChevronRight, Radio } from "lucide-react";
+import { TeamLogo } from "../ui/team-logo";
 
 function GameCard({ game }: { game: Game }) {
   const isLive = game.status === "live";
@@ -18,26 +19,30 @@ function GameCard({ game }: { game: Game }) {
       </div>
 
       {/* Teams */}
-      <div className="flex flex-col gap-2">
-        <TeamRow
-          initials={game.awayTeam.logoInitials}
-          name={game.awayTeam.shortName}
-          fullName={game.awayTeam.name}
-          color={game.awayTeam.primaryColor}
+      <GameDisplayCardOverview game={game} />
+
+
+    </article>
+  );
+}
+
+
+function GameDisplayCardOverview({game} : {game: Game}) {
+  const isLive = game.status === "live";
+  return (
+
+    <div className="flex flex-col gap-2">
+              <TeamRow
+          team={game.awayTeam}
           score={game.status !== "scheduled" ? game.awayScore : undefined}
           isWinning={game.awayScore > game.homeScore && !isLive}
         />
         <TeamRow
-          initials={game.homeTeam.logoInitials}
-          name={game.homeTeam.shortName}
-          fullName={game.homeTeam.name}
-          color={game.homeTeam.primaryColor}
+          team={game.homeTeam}
           score={game.status !== "scheduled" ? game.homeScore : undefined}
           isWinning={game.homeScore > game.awayScore && !isLive}
         />
-      </div>
-
-      {/* Scheduled time */}
+              {/* Scheduled time */}
       {game.status === "scheduled" ? (
         <time dateTime={game.scheduledAt} className="text-xs text-muted-foreground">
           {new Date(game.scheduledAt).toLocaleDateString("es-VE", {
@@ -52,41 +57,32 @@ function GameCard({ game }: { game: Game }) {
           })}
         </time>
       ) : null}
-    </article>
-  );
+    </div>
+    
+  )
+  
 }
 
 function TeamRow({
-  initials,
-  name,
-  fullName,
-  color,
+  team,
   score,
   isWinning,
 }: {
-  initials: string;
-  name: string;
-  fullName: string;
-  color: string;
+  team: Team;
   score?: number;
   isWinning: boolean;
 }) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-2.5">
-        <div
-          className="flex size-7 items-center justify-center rounded-md text-xs font-bold text-white"
-          style={{ backgroundColor: color }}
-        >
-          {initials}
-        </div>
+        <TeamLogo team={team} size="sm" />
         <div>
           <p
-            className={`text-sm font-semibold ${isWinning ? "text-foreground" : "text-foreground"}`}
+            className={`text-sm font-semibold ${isWinning ? "text-foreground" : "text-muted-foreground"}`}
           >
-            {name}
+            {team.shortName}
           </p>
-          <p className="text-[10px] text-muted-foreground">{fullName}</p>
+          <p className="text-[10px] text-muted-foreground">{team.name}</p>
         </div>
       </div>
       {score !== undefined ? (
