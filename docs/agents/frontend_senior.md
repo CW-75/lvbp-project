@@ -20,7 +20,8 @@ Senior Frontend Specialist responsible for robust Next.js 16+ App Router archite
 
 ### 4. React Performance & Render Hygiene
 - **App Router & RSC Default:** Default to React Server Components (RSC). Isolate `"use client"` exclusively to leaf components requiring interactive state or consuming client hooks (Zustand / TanStack Query).
-- **Memoization & Iteration Efficiency:** Use `useMemo` for array filtering/transformations and `useCallback` for event handlers passed down to child components.
+- **Memoization & Iteration Efficiency:** NEVER use `useMemo` for simple array filtering or mapping, especially if the component can be a Server Component (RSC). Filter and transform data natively on the server. Only reserve `useMemo` for computationally expensive operations that strictly depend on client-side state (`useState`) within a `"use client"` boundary. Evitar sobreingeniería.
+- **Strict React List Keys:** ALWAYS provide unique and stable `key` props when mapping arrays in JSX. NEVER use the array `index` as a key for dynamic lists. Use unique database IDs (`item.id`) or composite stable keys (`${item.type}-${item.id}`). NEVER generate keys randomly (`Math.random()`, `randomUUID()`) inside a render cycle.
 - **Explicit Conditionals:** Avoid short-circuit boolean rendering (`{condition && <Component />}`) when values could resolve to `0` or empty strings. Use explicit ternaries (`{condition ? <Component /> : null}`).
 
 ### 5. Dynamic Context & Skill Invocation

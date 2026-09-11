@@ -61,10 +61,10 @@ export function NewsFeedSection() {
                   >
                     {article.category}
                   </Badge>
-                  <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                  <time dateTime={article.publishedAt} className="flex items-center gap-1 text-[10px] text-muted-foreground">
                     <Clock className="size-3" />
                     {formatRelativeDate(article.publishedAt)}
-                  </span>
+                  </time>
                 </div>
                 <CardTitle className="text-sm font-bold leading-snug text-foreground transition-colors group-hover:text-primary">
                   {article.title}

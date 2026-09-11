@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { Menu } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const navLinks = [
   { href: "/", label: "Inicio" },
@@ -14,13 +15,15 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex size-9 items-center justify-center rounded-lg bg-primary font-bold text-white text-sm">
-            LV
-          </div>
-          <span className="text-lg font-bold tracking-tight text-foreground">
-            LVBP <span className="font-normal text-muted-foreground">GameCast</span>
-          </span>
+        <Link href="/" className="flex h-full py-3 items-center gap-3">
+          <Image 
+            src="/logo-lvbp-darken.svg" 
+            alt="LVBP GameCast Logo" 
+            width={120} 
+            height={36} 
+            priority
+            className="h-full w-auto object-contain"
+          />
         </Link>
 
         {/* Desktop nav */}
