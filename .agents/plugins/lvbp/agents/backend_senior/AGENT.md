@@ -1,6 +1,6 @@
-﻿---
+---
 name: backend_senior
-description: Backend & Data Agent
+description: "Úsalo para desarrollar el backend en Go, Arquitectura Hexagonal, SSE, consultas con sqlc y Redis Pub/Sub."
 ---
 # Backend & Data Agent
 

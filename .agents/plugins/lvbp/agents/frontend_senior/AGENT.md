@@ -1,6 +1,6 @@
-﻿---
+---
 name: frontend_senior
-description: Senior Frontend Agent
+description: "Úsalo para crear UI, Next.js App Router, estado con Zustand/TanStack y Tailwind CSS. Incluye diseño UI/UX."
 ---
 # Senior Frontend Agent
 
