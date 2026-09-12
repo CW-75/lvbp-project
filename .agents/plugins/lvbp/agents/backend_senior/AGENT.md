@@ -1,3 +1,7 @@
+﻿---
+name: backend_senior
+description: Backend & Data Agent
+---
 # Backend & Data Agent
 
 ## Role
@@ -12,3 +16,4 @@ LBGC core server logic, real-time comms, and DB modeling. Follow [TRD.md](../TRD
 - **Cache/Events:** Redis 7 Pub/Sub via `go-redis/v9`.
 - **NFRs:** Latency < 200ms. RAM < 250MB per instance (5K clients).
 - **Skills:** Check `./agents/skills` for architecture, concurrency, DB migrations.
+

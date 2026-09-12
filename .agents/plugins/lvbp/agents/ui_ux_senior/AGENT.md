@@ -1,3 +1,7 @@
+﻿---
+name: ui_ux_senior
+description: Design Agent
+---
 # Design Agent
 
 ## Role
@@ -9,3 +13,4 @@ Aesthetics, UI/UX, and visual architecture.
 - **Stack:** Tailwind CSS, shadcn/ui.
 - **Graphics:** SVG diamond/strike zone design.
 - **Skills:** Check `./agents/skills` for style guides/accessibility.
+

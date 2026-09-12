@@ -1,3 +1,7 @@
+﻿---
+name: orchestrator
+description: Orchestrator Agent
+---
 # Orchestrator Agent
 
 ## Role
@@ -19,3 +23,4 @@ Project director & task routing engine. Enforce [TRD.md](../TRD.md) constraints 
 - **Testing & Quality Assurance:** -> [test_designer.md](./test_designer.md) (Vitest, Playwright, Go unit/integration tests)
 - **Code Review & Auditing:** -> [code_reviewer.md](./code_reviewer.md) (PR validation, NFR leak checks, stack compliance)
 - **AI & Token Optimization:** -> [ai_engineer.md](./ai_engineer.md) (Prompt engineering, token efficiency, workspace rules)
+

@@ -1,3 +1,7 @@
+﻿---
+name: test_designer
+description: QA & Test Agent
+---
 # QA & Test Agent
 
 ## Role
@@ -7,3 +11,4 @@ Automated testing and QA.
 - **Backend (Go):** Unit/Integration tests for `go-chi`, `sqlc`, Redis events.
 - **Frontend (TS):** Vitest (hooks), Playwright/Cypress (E2E flows).
 - **Skills:** Check `./agents/skills` for DB/SSE mocking strategies.
+
