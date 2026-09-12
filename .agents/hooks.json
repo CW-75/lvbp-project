@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "post_agent_completion": [
+      {
+        "command": "go fmt ./...",
+        "working_dir": "./backend",
+        "description": "Auto-format Go code"
+      }
+    ]
+  }
+}

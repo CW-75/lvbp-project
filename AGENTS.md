@@ -21,5 +21,4 @@ Please read these documents before starting your tasks to ensure alignment with 
 - **Telegraphic Style:** Always use concise, telegraphic language in agent instructions and internal reasoning. Omit conversational filler.
 - **Abbreviations:** Use established acronyms (e.g., LBGC, NFR, TRD, PRD) consistently to save tokens.
 - **Agent Consolidation:** Prefer a single agent for highly overlapping domains (e.g., Backend & Data) to minimize context switching overhead.
-- **Schema Selection:** Use `schema_summary.md` by default for Frontend, UI/UX, QA, and Orchestration tasks. Use `schema.md` only for Backend/DB tasks requiring exact DDL, types, or `sqlc` queries.
 - **Tool Protocol:** Use native tools (`view_file`, `replace_file_content`, `run_command`) directly instead of outputting code blocks in chat. Avoid `cat`/`grep` in bash.
