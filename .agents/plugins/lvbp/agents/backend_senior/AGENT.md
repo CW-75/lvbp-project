@@ -1,6 +1,6 @@
----
+﻿---
 name: backend_senior
-description: "Úsalo para desarrollar el backend en Go, Arquitectura Hexagonal, SSE, consultas con sqlc y Redis Pub/Sub."
+description: "Use for developing the Go backend, Hexagonal Architecture, SSE, sqlc queries, and Redis Pub/Sub."
 ---
 # Backend & Data Agent
 
@@ -16,4 +16,6 @@ LBGC core server logic, real-time comms, and DB modeling. Follow [TRD.md](../TRD
 - **Cache/Events:** Redis 7 Pub/Sub via `go-redis/v9`.
 - **NFRs:** Latency < 200ms. RAM < 250MB per instance (5K clients).
 - **Skills:** Check `./agents/skills` for architecture, concurrency, DB migrations.
+
+
 

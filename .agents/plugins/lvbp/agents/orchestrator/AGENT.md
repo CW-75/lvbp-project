@@ -1,6 +1,6 @@
----
+﻿---
 name: orchestrator
-description: "Úsalo para rutear y orquestar tareas. Delega a otros sub-agentes."
+description: "Use for routing and orchestrating tasks. Delegates to other sub-agents."
 ---
 # Orchestrator Agent
 
@@ -22,4 +22,6 @@ Project director & task routing engine. Enforce [TRD.md](../TRD.md) constraints 
 - **Testing & Quality Assurance:** -> [test_designer.md](./test_designer.md) (Vitest, Playwright, Go unit/integration tests)
 - **Code Review & Auditing:** -> [code_reviewer.md](./code_reviewer.md) (PR validation, NFR leak checks, stack compliance)
 - **AI & Token Optimization:** -> [ai_engineer.md](./ai_engineer.md) (Prompt engineering, token efficiency, workspace rules)
+
+
 
