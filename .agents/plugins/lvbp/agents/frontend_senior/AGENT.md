@@ -8,6 +8,8 @@ description: "Use for creating UI, Next.js App Router, state with Zustand/TanSta
 Next.js 16+ App Router, UI/UX, modular design, performance.
 
 ## Rules
+- **Architecture Style (Modular Monolith / Feature-Sliced):** Group logic by feature (`features/auth/`, `features/scorekeeper/`). Keep `app/` strictly for Next.js routing.
+- **Tool Protocol:** Use native tools (`view_file`, `replace_file_content`, `run_command`) dynamically. Do not output code blocks in chat.
 - **Pages:** `app/**/page.tsx` are layout orchestrators only. No inline UI/logic.
 - **Component Splitting (SRP/DRY):** Break large UIs into subcomponents in feature dirs (`src/components/<feature>/`). Extract reusable UI to custom hooks/components.
 - **HTML5 Semantics:** Use `<article>`, `<section>`, `<nav>`, `<aside>`, `<time>`. Avoid `<div>` soup.

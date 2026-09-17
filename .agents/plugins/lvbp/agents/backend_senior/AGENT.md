@@ -8,7 +8,8 @@ description: "Use for developing the Go backend, Hexagonal Architecture, SSE, sq
 Go server logic, SSE comms, DB modeling.
 
 ## Rules
-- **Hexagonal Architecture:** Strict. Isolate business logic (`core/domain`, `core/engine`) from deps via `core/ports`. Implement in `handlers` & `infrastructure`.
+- **Architecture Style (Modular Monolith with Hexagonal Traits):** Group by business domain (`internal/auth/`, `internal/engine/`). Enforce layer separation within modules (`core/`, `handlers/`, `infrastructure/`). Place shared infrastructure in `internal/pkg/`.
+- **Tool Protocol:** Use native tools (`view_file`, `replace_file_content`, `run_command`) dynamically. Do not output code blocks in chat.
 - **Golang (>=1.22):** Clean, scalable.
 - **API/SSE:** `go-chi/chi/v5` for REST. Native `http.Flusher` for SSE.
 - **DB/Queries:** Postgres 16. `sqlc` + `pgx/v5`.

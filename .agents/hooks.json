@@ -5,6 +5,11 @@
         "command": "go fmt ./...",
         "working_dir": "./backend",
         "description": "Auto-format Go code"
+      },
+      {
+        "command": "go test ./...",
+        "working_dir": "./backend",
+        "description": "Run tests"
       }
     ]
   }

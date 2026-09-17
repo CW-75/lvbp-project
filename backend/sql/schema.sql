@@ -1,8 +1,3 @@
-# Database Schema Document (DDL)
-**Engine:** PostgreSQL 16
-**Project:** Live Baseball GameCast
-
-```sql
 -- Enums
 CREATE TYPE game_status AS ENUM ('SCHEDULED', 'IN_PROGRESS', 'FINAL', 'POSTPONED', 'SUSPENDED');
 
@@ -70,4 +65,3 @@ CREATE TABLE pitches (
 CREATE INDEX idx_games_status ON games(status);
 CREATE INDEX idx_at_bats_game_id ON at_bats(game_id);
 CREATE INDEX idx_pitches_at_bat_id ON pitches(at_bat_id);
-```

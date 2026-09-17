@@ -35,11 +35,13 @@ Decoupled hybrid architecture:
 ## 5. Agent Implementation Rules
 
 ### 5.1. Backend Constraints (Go / Postgres / Redis)
+- **Architecture Style (Modular Monolith with Hexagonal Traits):** Code must be grouped primarily by business domain/module (e.g., `internal/auth/`, `internal/engine/`). Within each module, layer separation is enforced (`core/`, `handlers/`, `infrastructure/`). Shared infrastructure goes into `internal/pkg/` or `internal/shared/`.
 - **Strict DB Interaction:** Use `sqlc` for all queries. No raw `database/sql` queries or ORMs like Gorm are allowed.
 - **SSE Handling:** For the Real-Time Channel, utilize `http.Flusher` natively via `go-chi`. You MUST enforce the `X-Accel-Buffering: no` and `Cache-Control: no-cache` headers to comply with NFR-3.
 - **Isolated Business Logic:** The State Engine must not infer physical outcomes (e.g., deducing a strike by coordinates). Strictly follow the Scorekeeper's explicit input as defined in the PRD.
 
 ### 5.2. Frontend Constraints (Next.js / React)
+- **Architecture Style (Modular Monolith / Feature-Sliced):** Group frontend logic by feature (e.g., `features/auth/`, `features/scorekeeper/`) containing their own components, hooks, and state. This avoids cluttering global directories while respecting Next.js App Router rules (`app/` for routing only).
 - **Strict State Segregation:** Use `Zustand` EXCLUSIVELY for live SSE states (in-progress games). Use `TanStack Query` EXCLUSIVELY for fetching historical/static REST endpoints. Never mix these responsibilities.
 - **App Router Paradigms:** Default to React Server Components. The `"use client"` directive must only be used in component trees requiring pure interactivity or consuming Zustand/TanStack hooks (e.g., Scorekeeper's visual matrix).
 - **Styling Restrictions:** Custom CSS files are prohibited (except initialization). Use `Tailwind CSS` utility classes and `shadcn/ui` components for all styling, including complex SVG manipulations for the diamond and strike zone.
