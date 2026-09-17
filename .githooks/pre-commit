@@ -1,0 +1,9 @@
+#!/bin/sh
+echo "Running pre-commit hooks..."
+
+# Run graphify to update graph.json
+if [ -f "Makefile" ] && [ -d ".venv" ]; then
+    make graphify
+fi
+
+exit 0
