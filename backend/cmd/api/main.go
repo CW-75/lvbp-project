@@ -1,11 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+
+	"lvbp-project/backend/internal/server"
+)
 
 func main() {
 	fmt.Println("LBGC Backend starting...")
-	// TODO: Initialize repositories (Postgres, Redis)
-	// TODO: Initialize Use Cases / Engine
-	// TODO: Initialize Handlers (REST, SSE)
-	// TODO: Start server on port 8080
+
+	srv := server.NewServer()
+
+	if err := srv.Run(":8080"); err != nil {
+		log.Fatalf("Server failed: %v", err)
+	}
 }
