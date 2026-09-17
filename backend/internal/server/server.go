@@ -52,7 +52,7 @@ func NewServer() *Server {
 	// 2. Iniciar PostgreSQL
 	connString := os.Getenv("DATABASE_URL")
 	if connString == "" {
-		connString = "postgres://postgres:postgres@localhost:5432/lvbp_db"
+		log.Fatal("DATABASE_URL environment variable is not set")
 	}
 	dbPool, err := pgxpool.New(context.Background(), connString)
 	if err != nil {
