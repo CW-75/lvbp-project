@@ -40,3 +40,8 @@ Thumbs.db
 *.swp
 *.swo
 .vscode/
+
+# Python / Graphify
+venv/
+.venv/
+graphify-out/
