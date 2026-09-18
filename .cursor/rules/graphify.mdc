@@ -1,0 +1,6 @@
+---
+description: Consulta el grafo Graphify en graphify-out/ para preguntas de código y arquitectura.
+alwaysApply: true
+---
+
+@.agents/rules/graphify.md
