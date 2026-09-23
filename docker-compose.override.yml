@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  postgres:
+    volumes:
+      # En desarrollo local (docker-compose.override.yml), inyectamos la pseudo-data
+      - ./backend/sql/seed.sql:/docker-entrypoint-initdb.d/2_seed.sql
