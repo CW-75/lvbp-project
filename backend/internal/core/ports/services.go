@@ -17,6 +17,9 @@ type ScorekeeperService interface {
 	
 	// RecordAtBatResult records a manual at-bat result (e.g. hit, error, out) instead of pitch-by-pitch.
 	RecordAtBatResult(ctx context.Context, gameID uuid.UUID, result string) (*domain.Game, *domain.AtBat, error)
+	
+	// ScoreRuns records one or more runs for the batting team on the current play.
+	ScoreRuns(ctx context.Context, gameID uuid.UUID, runs int) (*domain.Game, error)
 }
 
 // EventBus represents the port for publishing domain events

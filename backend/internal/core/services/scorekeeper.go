@@ -176,6 +176,48 @@ func (s *scorekeeperService) RecordAtBatResult(ctx context.Context, gameID uuid.
 	return nil, nil, errors.New("not implemented yet")
 }
 
+func (s *scorekeeperService) ScoreRuns(ctx context.Context, gameID uuid.UUID, runs int) (*domain.Game, error) {
+	if runs <= 0 {
+		return nil, errors.New("runs must be greater than 0")
+	}
+
+	game, err := s.gameRepo.GetGameByID(ctx, gameID)
+	if err != nil {
+		return nil, err
+	}
+
+	if game.Status != domain.GameStatusInProgress {
+		return nil, errors.New("game is not in progress")
+	}
+
+	// Update game score depending on who is batting
+	if game.IsTopInning {
+		game.AwayScore += runs // Top of inning = Away team bats
+	} else {
+		game.HomeScore += runs // Bottom of inning = Home team bats
+	}
+
+	game, err = s.gameRepo.UpdateGame(ctx, game)
+	if err != nil {
+		return nil, err
+	}
+
+	// Update the AtBat to record RBI/Runs Scored on the play
+	atBat, err := s.gameRepo.GetCurrentAtBat(ctx, gameID)
+	if err == nil && atBat != nil && atBat.Result == nil {
+		atBat.RunsScored += runs
+		_, _ = s.gameRepo.UpdateAtBatResult(ctx, atBat) // We ignore error here, game score is priority
+	}
+
+	_ = s.eventBus.PublishEvent("game:"+gameID.String(), map[string]interface{}{
+		"type": "ScoreUpdated",
+		"game": game,
+		"runs_added": runs,
+	})
+
+	return game, nil
+}
+
 func calculateCount(pitches []*domain.Pitch) (balls int, strikes int) {
 	for _, p := range pitches {
 		switch p.PitchResult {

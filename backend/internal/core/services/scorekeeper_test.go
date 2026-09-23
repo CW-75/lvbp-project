@@ -197,3 +197,32 @@ func TestScorekeeperService_RecordPitch_InningTransition(t *testing.T) {
 	
 	gameRepo.AssertExpectations(t)
 }
+
+func TestScorekeeperService_ScoreRuns(t *testing.T) {
+	gameRepo := new(MockGameRepository)
+	eventBus := new(MockEventBus)
+	svc := services.NewScorekeeperService(gameRepo, eventBus)
+	ctx := context.Background()
+	gameID := uuid.New()
+
+	game := &domain.Game{ID: gameID, Status: domain.GameStatusInProgress, CurrentInning: 1, IsTopInning: true, AwayScore: 0}
+	atBat := &domain.AtBat{ID: uuid.New(), GameID: gameID, RunsScored: 0}
+
+	gameRepo.On("GetGameByID", ctx, gameID).Return(game, nil)
+	gameRepo.On("UpdateGame", ctx, mock.MatchedBy(func(g *domain.Game) bool {
+		return g.AwayScore == 2 // 2 runs scored by Away Team (since it's Top Inning)
+	})).Return(game, nil)
+	
+	gameRepo.On("GetCurrentAtBat", ctx, gameID).Return(atBat, nil)
+	gameRepo.On("UpdateAtBatResult", ctx, mock.MatchedBy(func(ab *domain.AtBat) bool {
+		return ab.RunsScored == 2
+	})).Return(atBat, nil)
+
+	eventBus.On("PublishEvent", mock.Anything, mock.Anything).Return(nil)
+
+	resGame, err := svc.ScoreRuns(ctx, gameID, 2)
+	assert.NoError(t, err)
+	assert.Equal(t, 2, resGame.AwayScore)
+	
+	gameRepo.AssertExpectations(t)
+}
