@@ -1,21 +1,21 @@
 package domain
 
-type Pitch struct {
-	ID          int
-	AtBatID     int
-	CoordX      float64
-	CoordY      float64
-	PitchResult string // Ball, Called Strike, Swinging Strike, Foul, In Play, Hit By Pitch
-	CountBefore string // e.g. "0-0-0"
-	VelocityMPH float64
-}
+import (
+	"time"
 
-type AtBat struct {
-	ID           int
-	GameID       int
-	BatterID     int
-	PitcherID    int
-	Result       string
-	RunsScored   int
-	OutsRecorded int
+	"github.com/google/uuid"
+)
+
+type Pitch struct {
+	ID            uuid.UUID
+	AtBatID       uuid.UUID
+	PitchNumber   int
+	CoordinateX   float64
+	CoordinateY   float64
+	PitchResult   string
+	BallsBefore   int
+	StrikesBefore int
+	OutsBefore    int
+	VelocityMPH   *float64 // Can be nil
+	CreatedAt     time.Time
 }
