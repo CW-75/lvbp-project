@@ -44,6 +44,10 @@ func setupTestDB(ctx context.Context, t *testing.T) (*pgxpool.Pool, func()) {
 }
 
 func TestGameRepository_CreateAndGetGame(t *testing.T) {
+	if testing.Short() {
+		t.Skip("Skipping integration test in short mode")
+	}
+
 	ctx := context.Background()
 	dbPool, cleanup := setupTestDB(ctx, t)
 	defer cleanup()
@@ -74,6 +78,10 @@ func TestGameRepository_CreateAndGetGame(t *testing.T) {
 }
 
 func TestGameRepository_UpdateGame(t *testing.T) {
+	if testing.Short() {
+		t.Skip("Skipping integration test in short mode")
+	}
+
 	ctx := context.Background()
 	dbPool, cleanup := setupTestDB(ctx, t)
 	defer cleanup()

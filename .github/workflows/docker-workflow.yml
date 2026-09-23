@@ -30,6 +30,14 @@ jobs:
         run: |
           docker info
 
-      - name: Run Backend Tests
+      - name: Run Backend Tests (Linux)
+        if: runner.os != 'Windows'
         working-directory: ./backend
         run: go test -v ./...
+
+      - name: Run Backend Tests (Windows)
+        if: runner.os == 'Windows'
+        working-directory: ./backend
+        # testcontainers doesn't work out of the box on Windows runners with default settings
+        run: go test -v -short ./...
+

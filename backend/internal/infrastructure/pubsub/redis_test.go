@@ -13,6 +13,10 @@ import (
 )
 
 func TestRedisPublisher_PublishEvent(t *testing.T) {
+	if testing.Short() {
+		t.Skip("Skipping integration test in short mode")
+	}
+
 	ctx := context.Background()
 
 	redisContainer, err := redis.Run(ctx, "redis:7-alpine")
