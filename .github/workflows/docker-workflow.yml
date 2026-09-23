@@ -1,0 +1,35 @@
+name: Docker Workflow CI
+
+on:
+  push:
+    branches: ["master", "feature/*", "develop"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23" # Ajusta esto a tu versión de Go si es distinta
+          cache: true
+
+      - name: Start Docker (Windows only)
+        if: runner.os == 'Windows'
+        # Testcontainers en runners de Windows a veces necesita preparaciones adicionales, pero
+        # github actions pre-instala un entorno de docker. Nos aseguramos de que esté activo.
+        run: |
+          docker info
+
+      - name: Run Backend Tests
+        working-directory: ./backend
+        run: go test -v ./...
