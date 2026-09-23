@@ -69,3 +69,7 @@ WHERE id = $1 LIMIT 1;
 -- name: ListTeams :many
 SELECT * FROM teams
 ORDER BY name;
+
+-- name: GetOutsForInning :one
+SELECT COALESCE(SUM(outs_recorded), 0)::int FROM at_bats
+WHERE game_id = $1 AND inning = $2 AND is_top_inning = $3;
