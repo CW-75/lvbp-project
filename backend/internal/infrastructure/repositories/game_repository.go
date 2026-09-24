@@ -39,7 +39,7 @@ func (r *GameRepository) GetGameByID(ctx context.Context, id uuid.UUID) (*domain
 		CurrentInning: int(row.CurrentInning.Int32),
 		IsTopInning:   row.IsTopInning.Bool,
 		StartTime:     row.StartTime,
-		CreatedAt:     row.CreatedAt,
+		CreatedAt:     row.CreatedAt.Time,
 	}, nil
 }
 
@@ -61,7 +61,7 @@ func (r *GameRepository) ListActiveGames(ctx context.Context) ([]*domain.Game, e
 			CurrentInning: int(row.CurrentInning.Int32),
 			IsTopInning:   row.IsTopInning.Bool,
 			StartTime:     row.StartTime,
-			CreatedAt:     row.CreatedAt,
+			CreatedAt:     row.CreatedAt.Time,
 		}
 	}
 	return games, nil
@@ -83,7 +83,7 @@ func (r *GameRepository) CreateGame(ctx context.Context, game *domain.Game) (*do
 	game.AwayScore = int(row.AwayScore.Int32)
 	game.CurrentInning = int(row.CurrentInning.Int32)
 	game.IsTopInning = row.IsTopInning.Bool
-	game.CreatedAt = row.CreatedAt
+	game.CreatedAt = row.CreatedAt.Time
 	
 	return game, nil
 }
@@ -118,7 +118,7 @@ func (r *GameRepository) CreateAtBat(ctx context.Context, atBat *domain.AtBat) (
 	}
 
 	atBat.ID = row.ID
-	atBat.CreatedAt = row.CreatedAt
+	atBat.CreatedAt = row.CreatedAt.Time
 	return atBat, nil
 }
 
@@ -159,7 +159,7 @@ func (r *GameRepository) GetCurrentAtBat(ctx context.Context, gameID uuid.UUID) 
 		PitcherID:    row.PitcherID,
 		RunsScored:   int(row.RunsScored.Int32),
 		OutsRecorded: int(row.OutsRecorded.Int32),
-		CreatedAt:    row.CreatedAt,
+		CreatedAt:    row.CreatedAt.Time,
 	}
 	if row.Result.Valid {
 		atBat.Result = &row.Result.String
@@ -189,7 +189,7 @@ func (r *GameRepository) CreatePitch(ctx context.Context, pitch *domain.Pitch) (
 	}
 
 	pitch.ID = row.ID
-	pitch.CreatedAt = row.CreatedAt
+	pitch.CreatedAt = row.CreatedAt.Time
 	return pitch, nil
 }
 
@@ -209,7 +209,7 @@ func (r *GameRepository) GetPitchesForAtBat(ctx context.Context, atBatID uuid.UU
 			BallsBefore:   int(row.BallsBefore),
 			StrikesBefore: int(row.StrikesBefore),
 			OutsBefore:    int(row.OutsBefore),
-			CreatedAt:     row.CreatedAt,
+			CreatedAt:     row.CreatedAt.Time,
 		})
 	}
 	return pitches, nil
