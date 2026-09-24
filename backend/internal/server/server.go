@@ -13,6 +13,10 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	"lvbp-project/backend/internal/auth"
+	"lvbp-project/backend/internal/handlers/rest"
+	"lvbp-project/backend/internal/handlers/sse"
+	"lvbp-project/backend/internal/infrastructure/repositories"
+	"lvbp-project/backend/internal/core/services"
 	redisPkg "lvbp-project/backend/internal/pkg/redis"
 )
 
@@ -81,27 +85,26 @@ func NewServer() *Server {
 func (s *Server) registerModules() {
 	auth.RegisterRoutes(s.router, s.dbPool, s.redisClient)
 
-	// Dependency Injection for handlers
-	// Currently GameRepository and StandingsRepository might need real implementations, 
-	// here we just initialize the handlers to bind the routes if they were created.
-	// We will create the routes inside the chi router.
+	// Dependency Injection for repositories and services
+	gameRepo := repositories.NewGameRepository(s.dbPool)
+	eventBus := redisPkg.NewEventBus(s.redisClient.GetDB())
+	scorekeeperService := services.NewScorekeeperService(gameRepo, eventBus)
 
-	// For the sake of the project architecture, we'll mount /api
+	// REST handlers
+	boxscoreHandler := rest.NewBoxscoreHandler(gameRepo)
+	ingestionHandler := rest.NewIngestionHandler(scorekeeperService)
+
+	// SSE handler
+	streamHandler := sse.NewStreamHandler(s.redisClient)
+
+	// Mount /api routes
 	s.router.Route("/api/v1", func(r chi.Router) {
-		// // TODO: inject actual repositories
-		// gameRepo := postgres.NewGameRepository(s.dbPool)
-		// standingsRepo := postgres.NewStandingsRepository(s.dbPool)
-		
-		// restHandlers
-		// boxscoreHandler := rest.NewBoxscoreHandler(gameRepo)
-		// standingsHandler := rest.NewStandingsHandler(standingsRepo)
-		
-		// r.Get("/games/{gameId}/boxscore", boxscoreHandler.GetBoxscore)
-		// r.Get("/standings", standingsHandler.GetStandings)
-		
-		// sse handler
-		// streamHandler := sse.NewStreamHandler(s.redisClient)
-		// r.Get("/games/{gameId}/stream", streamHandler.StreamGameEvents)
+		// REST endpoints
+		r.Get("/games/{gameId}/boxscore", boxscoreHandler.GetBoxscore)
+		r.Post("/games/{gameId}/pitches", ingestionHandler.ProcessPitch)
+
+		// SSE endpoint
+		r.Get("/games/{gameId}/stream", streamHandler.StreamGameEvents)
 	})
 }
 

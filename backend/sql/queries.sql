@@ -73,3 +73,19 @@ ORDER BY name;
 -- name: GetOutsForInning :one
 SELECT COALESCE(SUM(outs_recorded), 0)::int FROM at_bats
 WHERE game_id = $1 AND inning = $2 AND is_top_inning = $3;
+
+-- name: GetStandings :many
+SELECT 
+    t.id as team_id,
+    t.name as team_name,
+    COUNT(g.id) as games_played,
+    SUM(CASE WHEN (g.home_team_id = t.id AND g.home_score > g.away_score) OR (g.away_team_id = t.id AND g.away_score > g.home_score) THEN 1 ELSE 0 END) as won,
+    SUM(CASE WHEN (g.home_team_id = t.id AND g.home_score < g.away_score) OR (g.away_team_id = t.id AND g.away_score < g.home_score) THEN 1 ELSE 0 END) as lost,
+    CASE WHEN COUNT(g.id) > 0 
+         THEN SUM(CASE WHEN (g.home_team_id = t.id AND g.home_score > g.away_score) OR (g.away_team_id = t.id AND g.away_score > g.home_score) THEN 1 ELSE 0 END)::float / COUNT(g.id)
+         ELSE 0 END as pct,
+    0.0 as games_behind
+FROM teams t
+LEFT JOIN games g ON (g.home_team_id = t.id OR g.away_team_id = t.id) AND g.status = 'FINAL'
+GROUP BY t.id, t.name
+ORDER BY pct DESC, won DESC;
