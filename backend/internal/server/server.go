@@ -80,7 +80,31 @@ func NewServer() *Server {
 
 func (s *Server) registerModules() {
 	auth.RegisterRoutes(s.router, s.dbPool, s.redisClient)
+
+	// Dependency Injection for handlers
+	// Currently GameRepository and StandingsRepository might need real implementations, 
+	// here we just initialize the handlers to bind the routes if they were created.
+	// We will create the routes inside the chi router.
+
+	// For the sake of the project architecture, we'll mount /api
+	s.router.Route("/api/v1", func(r chi.Router) {
+		// // TODO: inject actual repositories
+		// gameRepo := postgres.NewGameRepository(s.dbPool)
+		// standingsRepo := postgres.NewStandingsRepository(s.dbPool)
+		
+		// restHandlers
+		// boxscoreHandler := rest.NewBoxscoreHandler(gameRepo)
+		// standingsHandler := rest.NewStandingsHandler(standingsRepo)
+		
+		// r.Get("/games/{gameId}/boxscore", boxscoreHandler.GetBoxscore)
+		// r.Get("/standings", standingsHandler.GetStandings)
+		
+		// sse handler
+		// streamHandler := sse.NewStreamHandler(s.redisClient)
+		// r.Get("/games/{gameId}/stream", streamHandler.StreamGameEvents)
+	})
 }
+
 
 func (s *Server) Run(port string) error {
 	defer func() {

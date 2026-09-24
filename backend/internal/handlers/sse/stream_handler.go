@@ -1,9 +1,20 @@
 package sse
 
-import "net/http"
+import (
+	"context"
+	"fmt"
+	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	redisPkg "lvbp-project/backend/internal/pkg/redis"
+)
 
 type StreamHandler struct {
-	// TODO: inject redis pub/sub subscriber
+	redisClient *redisPkg.Client
+}
+
+func NewStreamHandler(redisClient *redisPkg.Client) *StreamHandler {
+	return &StreamHandler{redisClient: redisClient}
 }
 
 func (h *StreamHandler) StreamGameEvents(w http.ResponseWriter, r *http.Request) {
@@ -19,6 +30,38 @@ func (h *StreamHandler) StreamGameEvents(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	// TODO: implement event loop and flush
-	_ = flusher
+	gameID := chi.URLParam(r, "gameId")
+	if gameID == "" {
+		http.Error(w, "gameId is required", http.StatusBadRequest)
+		return
+	}
+
+	channel := fmt.Sprintf("game:%s:events", gameID)
+	pubsub := h.redisClient.GetDB().Subscribe(r.Context(), channel)
+	defer pubsub.Close()
+
+	// Ensure connection is established
+	_, err := pubsub.Receive(r.Context())
+	if err != nil {
+		http.Error(w, "Failed to subscribe to events", http.StatusInternalServerError)
+		return
+	}
+
+	// Send an initial connected event
+	fmt.Fprintf(w, "event: connected\ndata: {\"status\":\"connected\",\"gameId\":\"%s\"}\n\n", gameID)
+	flusher.Flush()
+
+	ch := pubsub.Channel()
+
+	for {
+		select {
+		case <-r.Context().Done():
+			// Client disconnected
+			return
+		case msg := <-ch:
+			// msg.Payload is a JSON string of the event
+			fmt.Fprintf(w, "data: %s\n\n", msg.Payload)
+			flusher.Flush()
+		}
+	}
 }

@@ -20,7 +20,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.23" # Ajusta esto a tu versión de Go si es distinta
+          go-version: "1.26" # Alineado con el go.mod del proyecto
           cache: true
 
       - name: Run Backend Tests
