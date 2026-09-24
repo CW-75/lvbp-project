@@ -1,7 +1,6 @@
 package sse
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 
@@ -58,7 +57,10 @@ func (h *StreamHandler) StreamGameEvents(w http.ResponseWriter, r *http.Request)
 		case <-r.Context().Done():
 			// Client disconnected
 			return
-		case msg := <-ch:
+		case msg, ok := <-ch:
+			if !ok {
+				return
+			}
 			// msg.Payload is a JSON string of the event
 			fmt.Fprintf(w, "data: %s\n\n", msg.Payload)
 			flusher.Flush()
