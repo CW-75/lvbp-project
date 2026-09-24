@@ -19,6 +19,8 @@ type GameRepository interface {
 	
 	CreatePitch(ctx context.Context, pitch *domain.Pitch) (*domain.Pitch, error)
 	GetPitchesForAtBat(ctx context.Context, atBatID uuid.UUID) ([]*domain.Pitch, error)
+	
+	GetOutsForInning(ctx context.Context, gameID uuid.UUID, inning int, isTopInning bool) (int, error)
 }
 
 type StandingsRepository interface {

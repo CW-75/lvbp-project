@@ -185,6 +185,24 @@ func (q *Queries) GetGame(ctx context.Context, id uuid.UUID) (Game, error) {
 	return i, err
 }
 
+const getOutsForInning = `-- name: GetOutsForInning :one
+SELECT COALESCE(SUM(outs_recorded), 0)::int FROM at_bats
+WHERE game_id = $1 AND inning = $2 AND is_top_inning = $3
+`
+
+type GetOutsForInningParams struct {
+	GameID      pgtype.UUID
+	Inning      int32
+	IsTopInning bool
+}
+
+func (q *Queries) GetOutsForInning(ctx context.Context, arg GetOutsForInningParams) (int32, error) {
+	row := q.db.QueryRow(ctx, getOutsForInning, arg.GameID, arg.Inning, arg.IsTopInning)
+	var column_1 int32
+	err := row.Scan(&column_1)
+	return column_1, err
+}
+
 const getPitchesForAtBat = `-- name: GetPitchesForAtBat :many
 SELECT id, at_bat_id, pitch_number, coordinate_x, coordinate_y, pitch_result, balls_before, strikes_before, outs_before, velocity_mph, created_at FROM pitches
 WHERE at_bat_id = $1
