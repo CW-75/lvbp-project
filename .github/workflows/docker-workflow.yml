@@ -1,0 +1,46 @@
+name: Docker Workflow CI
+
+on:
+  push:
+    branches: ["master", "feature/*", "develop"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23" # Ajusta esto a tu versión de Go si es distinta
+          cache: true
+
+      - name: Run Backend Tests
+        working-directory: ./backend
+        run: go test -v ./...
+
+      - name: Verify Docker Compose Build and Run
+        run: |
+          # Creamos un .env de prueba basado en el .env.example
+          cp .env.example .env
+          # Levantamos el proyecto
+          docker compose up -d --build
+          # Esperamos unos segundos para asegurar que no se caigan inmediatamente
+          sleep 10
+          # Verificamos si algún contenedor se detuvo con error
+          if docker compose ps | grep -q "Exit"; then
+            echo "Uno o más contenedores fallaron al iniciar:"
+            docker compose logs
+            exit 1
+          fi
+          # Apagamos los contenedores limpios
+          docker compose down
+

@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 	"time"
+
+	"github.com/testcontainers/testcontainers-go/modules/redis"
 )
 
 func TestNewClient(t *testing.T) {
@@ -34,10 +36,29 @@ func TestPing(t *testing.T) {
 	if testing.Short() {
 		t.Skip("Skipping integration test in short mode")
 	}
-	
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	redisContainer, err := redis.Run(ctx, "redis:7-alpine")
+	if err != nil {
+		t.Fatalf("Failed to start redis container: %v", err)
+	}
+	defer redisContainer.Terminate(context.Background())
+
+	host, err := redisContainer.Host(ctx)
+	if err != nil {
+		t.Fatalf("Failed to get container host: %v", err)
+	}
+
+	port, err := redisContainer.MappedPort(ctx, "6379/tcp")
+	if err != nil {
+		t.Fatalf("Failed to get container port: %v", err)
+	}
+
 	cfg := Config{
-		Host:     "localhost",
-		Port:     "6379",
+		Host:     host,
+		Port:     port.Port(),
 		Password: "",
 		DB:       0,
 	}
@@ -47,9 +68,6 @@ func TestPing(t *testing.T) {
 		t.Fatalf("Failed to create redis client: %v", err)
 	}
 	defer client.Close()
-
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
-	defer cancel()
 
 	err = client.Ping(ctx)
 	if err != nil {
