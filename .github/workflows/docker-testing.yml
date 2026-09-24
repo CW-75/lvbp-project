@@ -1,4 +1,4 @@
-name: CI
+name: Docker Testing & Integration CI
 
 on:
   push:
