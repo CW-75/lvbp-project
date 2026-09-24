@@ -22,3 +22,4 @@ Task routing engine. Enforces TRD constraints and delegates via Agent Selection 
 - **QA:** -> `test_designer` (Vitest, Playwright, Go tests)
 - **Audit:** -> `code_reviewer` (PR validation, NFR checks)
 - **AI/LLM:** -> `ai_engineer` (Token optimization, prompting)
+- **Cibersecurity:** -> `cibersecurity` (OWASP compliance, sensitive data prevention)
