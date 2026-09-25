@@ -1,0 +1,18 @@
+# Documentation site build artifacts (auto-generated, deployed to gh-pages branch)
+.vitepress/dist/
+public/api/
+public/typedoc/
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

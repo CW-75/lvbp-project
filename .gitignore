@@ -33,6 +33,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Documentation site build output
+docs-site/.vitepress/dist/
+docs-site/public/api/
+docs-site/public/typedoc/
+
 # OS / Editor
 .DS_Store
 Thumbs.db

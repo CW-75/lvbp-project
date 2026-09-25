@@ -1,0 +1,24 @@
+{
+  "name": "lvbp-docs",
+  "version": "1.0.0",
+  "description": "Documentation site for LVBP Live Baseball GameCast",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "generate:openapi": "cd ../backend && swag init -g cmd/api/main.go -o ../docs-site/public/api --parseDependency --parseInternal",
+    "generate:typedoc": "cd ../web && npx typedoc --out ../docs-site/public/typedoc --entryPoints src/lib --plugin typedoc-plugin-markdown --readme none"
+  },
+  "devDependencies": {
+    "vitepress": "^1.3.0",
+    "vue": "^3.4.0",
+    "@vueuse/core": "^10.9.0",
+    "mermaid": "^10.9.0",
+    "vitepress-plugin-mermaid": "^2.0.16",
+    "redoc": "^2.1.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "lvbp-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LVBP Live Baseball GameCast - Monorepo root",
+  "type": "module",
+  "scripts": {
+    "build-docs": "node scripts/build-docs.js",
+    "build-docs:ci": "node scripts/build-docs.js --ci",
+    "dev-docs": "node scripts/build-docs.js --dev",
+    "build-docs:openapi": "node scripts/build-docs.js --skip-typedoc --skip-vitepress",
+    "build-docs:typedoc": "node scripts/build-docs.js --skip-openapi --skip-vitepress",
+    "build-docs:vitepress": "node scripts/build-docs.js --skip-openapi --skip-typedoc",
+    "clean-docs": "node -e \"import('fs').then(fs=>{['docs-site/.vitepress/dist','docs-site/public/api','docs-site/public/typedoc'].forEach(d=>fs.rmSync(d,{recursive:true,force:true}));console.log('Cleaned docs artifacts')})\""
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@11.5.0",
+  "devDependencies": {}
+}
