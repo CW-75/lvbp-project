@@ -10,6 +10,21 @@
         "command": "go test ./...",
         "working_dir": "./backend",
         "description": "Run tests"
+      },
+      {
+        "command": "golangci-lint run ./...",
+        "working_dir": "./backend",
+        "description": "Lint Go code"
+      },
+      {
+        "command": "pnpm run lint",
+        "working_dir": "./web",
+        "description": "Lint frontend code"
+      },
+      {
+        "command": "graphify update .",
+        "working_dir": ".",
+        "description": "Update knowledge graph"
       }
     ]
   }

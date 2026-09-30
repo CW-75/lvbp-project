@@ -17,6 +17,13 @@ Please read these documents before starting your tasks to ensure alignment with 
 - **IMPORTANT**: Even if the user prompts in English, you MUST bring all solutions, suggestions, and explanations translated in Spanish in the Agent chat.
 - **IMPORTANT**: Any proposed implementation plan, task list, walkthrough, or other generated markdown artifact MUST also be written entirely in Spanish.
 
+## Available Core Skills
+
+To reduce context consumption, load the following skills **ONLY** when your task requires it:
+- **UI / Frontend:** Load the `shadcn` skill if you work with UI components, and `frontend-design` if you design new interfaces. Use `vercel-react-best-practices` for optimization.
+- **Database / Backend:** Load the `supabase-postgres-best-practices` skill BEFORE modifying schemas, queries, or migrations.
+- **Architecture:** Load `graphify` to query the project's knowledge graph.
+
 ## Context Optimization Rules
 - **Telegraphic Style:** Always use concise, telegraphic language in agent instructions and internal reasoning. Omit conversational filler.
 - **Abbreviations:** Use established acronyms (e.g., LBGC, NFR, TRD, PRD) consistently to save tokens.
