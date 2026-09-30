@@ -4,8 +4,9 @@ This document outlines the Git conventions that must be strictly followed when w
 
 ## General Principles
 
-1. **Reusing Branches/Worktrees for Consecutive Changes:**
-   - **CRITICAL:** Do NOT create other branches or worktrees if the same files are modified by a requirement on chat. Reuse the current branch or worktree to avoid fragmenting the workspace unnecessarily and creating conflicts across multiple branches.
+1. **Git Flow Branching Strategy:**
+   - **CRITICAL:** When starting a NEW requirement or feature, you MUST create a new branch off from `develop`. Follow Git Flow conventions strictly.
+   - Reusing branches is ONLY allowed if you are continuing work on the *same* requirement. Do not create new branches for consecutive changes on the same requirement.
    
 2. **Commit Messages:**
    - Use descriptive commit messages following the conventional commits standard (e.g., `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`).

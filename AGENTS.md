@@ -29,3 +29,4 @@ To reduce context consumption, load the following skills **ONLY** when your task
 - **Abbreviations:** Use established acronyms (e.g., LBGC, NFR, TRD, PRD) consistently to save tokens.
 - **Agent Consolidation:** Prefer a single agent for highly overlapping domains (e.g., Backend & Data) to minimize context switching overhead.
 - **Tool Protocol:** Use native tools (`view_file`, `replace_file_content`, `run_command`) directly instead of outputting code blocks in chat. Avoid `cat`/`grep` in bash.
+- **Git Flow:** When starting a NEW requirement, always branch off from `develop`.
