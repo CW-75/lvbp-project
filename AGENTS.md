@@ -30,3 +30,8 @@ To reduce context consumption, load the following skills **ONLY** when your task
 - **Agent Consolidation:** Prefer a single agent for highly overlapping domains (e.g., Backend & Data) to minimize context switching overhead.
 - **Tool Protocol:** Use native tools (`view_file`, `replace_file_content`, `run_command`) directly instead of outputting code blocks in chat. Avoid `cat`/`grep` in bash.
 - **Git Flow:** When starting a NEW requirement, always branch off from `develop`.
+
+## SDD & Knowledge Persistence
+- **Spec-Driven Development:** Before creating an execution plan for a new feature, you MUST instantiate a feature spec using `docs/templates/FEATURE_SPEC.md` and save it to `docs/specs/`. No code should be planned without a spec.
+- **Memory Persistence:** Before debugging a complex issue, read `docs/MEMORY.md`. If you resolve a difficult bug or discover a new project constraint, you MUST append the lesson learned to `docs/MEMORY.md`.
+- **ADRs:** If you make a major architectural decision, generate an Architecture Decision Record in `docs-site/architecture/adr/`.
